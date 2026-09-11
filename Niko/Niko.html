@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicolás Brito Pedrocca — Portafolio & Desarrollador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Niko.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Sacude<span class="accent">Devs</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#sobre" class="nav-link">Sobre mí</a>
+        <a href="#skills" class="nav-link">Habilidades</a>
+        <a href="#proyectos" class="nav-link">Proyectos</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="index.html" class="btn btn-nav">← Volver a Sacude Tech</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#sobre" class="nav-link" onclick="closeMobileMenu()">Sobre mí</a>
+      <a href="#skills" class="nav-link" onclick="closeMobileMenu()">Habilidades</a>
+      <a href="#proyectos" class="nav-link" onclick="closeMobileMenu()">Proyectos</a>
+      <a href="#contacto" class="nav-link" onclick="closeMobileMenu()">Contacto</a>
+      <a href="index.html" class="btn btn-primary" onclick="closeMobileMenu()">← Volver a Sacude Tech</a>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="container hero-inner">
+      <div class="hero-badge fade-in">🧑‍💻 Fundador & Desarrollador de Sacude Tech</div>
+
+      <h1 class="hero-title fade-in delay-1">
+        Nicolás<br />
+        <span class="highlight">Brito Pedrocca</span>
+      </h1>
+
+      <p class="hero-subtitle fade-in delay-2">
+        Técnico Superior en Desarrollo de Software. Apasionado del frontend moderno,<br class="br-desktop" />
+        la educación tecnológica y la creación de experiencias web únicas.
+      </p>
+
+      <div class="hero-actions fade-in delay-3">
+        <a href="#proyectos" class="btn btn-primary btn-large">
+          <span class="btn-icon">🚀</span>
+          Ver mis proyectos
+        </a>
+        <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="btn btn-ghost btn-large">LinkedIn →</a>
+      </div>
+
+      <div class="hero-stats fade-in delay-4">
+        <div class="stat">
+          <span class="stat-num">+3</span>
+          <span class="stat-label">Años codeando</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">+10</span>
+          <span class="stat-label">Proyectos Web</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Dedicación</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-float code-float-1 fade-in delay-5">
+      <pre><span class="c-key">const</span> <span class="c-var">dev</span> = <span class="c-str">"Nikochittoo"</span>;</pre>
+    </div>
+    <div class="code-float code-float-2 fade-in delay-5">
+      <pre><span class="c-fn">build</span>(<span class="c-str">"future"</span>);</pre>
+    </div>
+  </section>
+
+  <!-- ========== SOBRE MÍ ========== -->
+  <section class="sobre reveal" id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-visual">
+          <div class="sobre-card-big">
+            <div class="sobre-emoji">⚡</div>
+            <div class="sobre-card-tag">Frontend Developer</div>
+          </div>
+          <div class="sobre-card-small card-sm-1">
+            <span class="tag-dot tag-yellow"></span> JavaScript & React
+          </div>
+          <div class="sobre-card-small card-sm-2">
+            <span class="tag-dot tag-orange"></span> UI/UX Enfoque
+          </div>
+          <div class="sobre-card-small card-sm-3">
+            <span class="tag-dot tag-white"></span> Docencia Tech
+          </div>
+        </div>
+
+        <div class="sobre-content">
+          <span class="section-tag">Conoceme más</span>
+          <h2 class="section-title">Transformando ideas en código limpio y eficiente</h2>
+          <p class="sobre-text">
+            Soy Técnico Superior en Desarrollo de Software y creador de <strong>Sacude Tech</strong>. 
+            Me especializo en el desarrollo frontend moderno, creando interfaces atractivas, funcionales y orientadas al usuario.
+          </p>
+          <p class="sobre-text">
+            Creo firmemente que la programación es una herramienta de transformación social. Por eso, además de desarrollar, 
+            disfruto enormemente compartir conocimiento y enseñar a quienes recién empiezan en este mundo.
+          </p>
+          <div class="sobre-features">
+            <div class="feature-pill">💡 Resolución de problemas</div>
+            <div class="feature-pill">🎨 Diseño adaptable</div>
+            <div class="feature-pill">🤝 Trabajo en equipo</div>
+            <div class="feature-pill">📚 Aprendizaje continuo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HABILIDADES ========== -->
+  <section class="cursos reveal" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stack tecnológico</span>
+        <h2 class="section-title">Mis Habilidades</h2>
+        <p class="section-subtitle">Las herramientas y tecnologías que manejo para llevar a cabo cada desarrollo.</p>
+      </div>
+
+      <div class="cursos-grid">
+
+        <article class="curso-card reveal-card">
+          <div class="curso-header">
+            <div class="curso-icon">🌐</div>
+            <span class="curso-nivel nivel-inicial">Frontend</span>
+          </div>
+          <h3 class="curso-nombre">HTML5, CSS3 & JavaScript</h3>
+          <p class="curso-desc">Dominio absoluto de maquetación avanzada, diseño responsive, animaciones fluidas y lógica moderna con ES6+.</p>
+          <div class="curso-footer">
+            <span class="curso-duracion">Experiencia sólida</span>
+            <span class="curso-btn">Principal</span>
+          </div>
+        </article>
+
+        <article class="curso-card reveal-card">
+          <div class="curso-header">
+            <div class="curso-icon">⚛️</div>
+            <span class="curso-nivel nivel-intermedio">Framework</span>
+          </div>
+          <h3 class="curso-nombre">React.js & Ecosistema</h3>
+          <p class="curso-desc">Creación de componentes reutilizables, manejo de estados, hooks y arquitectura limpia para aplicaciones web interactivas.</p>
+          <div class="curso-footer">
+            <span class="curso-duracion">Desarrollo Moderno</span>
+            <span class="curso-btn">Avanzado</span>
+          </div>
+        </article>
+
+        <article class="curso-card reveal-card">
+          <div class="curso-header">
+            <div class="curso-icon">🐍</div>
+            <span class="curso-nivel nivel-inicial">Backend / Base</span>
+          </div>
+          <h3 class="curso-nombre">Python & Bases de Datos</h3>
+          <p class="curso-desc">Lógica de programación, scripts de automatización y gestión de datos con SQL para conectar soluciones completas.</p>
+          <div class="curso-footer">
+            <span class="curso-duracion">Lógica & Datos</span>
+            <span class="curso-btn">Intermedio</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROYECTOS ========== -->
+  <section class="programadores reveal" id="proyectos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Proyectos Destacados</h2>
+        <p class="section-subtitle">Algunos de los desarrollos y plataformas en los que estuve trabajando.</p>
+      </div>
+
+      <div class="programadores-grid">
+
+        <article class="programador-card reveal-card">
+          <div class="programador-avatar">
+            <div class="avatar-placeholder">⚡</div>
+            <div class="programador-badge">Academia</div>
+          </div>
+          <div class="programador-info">
+            <h3 class="programador-nombre">Sacude Tech</h3>
+            <span class="programador-area">Plataforma Educativa & Comunidad</span>
+            <p class="programador-desc">Academia online de programación enfocada en enseñar desde cero con proyectos prácticos, tutorías y soporte constante.</p>
+          </div>
+          <div class="programador-redes">
+            <a href="index.html" class="red-link">Ver Web</a>
+          </div>
+        </article>
+
+        <article class="programador-card reveal-card">
+          <div class="programador-avatar">
+            <div class="avatar-placeholder">🤖</div>
+            <div class="programador-badge">Robótica</div>
+          </div>
+          <div class="programador-info">
+            <h3 class="programador-nombre">Sistema de Inventario & Arduino</h3>
+            <span class="programador-area">Hardware & Software</span>
+            <p class="programador-desc">Desarrollo de control de inventario integrado con microcontroladores, lógica en PSeInt y C++ orientada a laboratorios técnicos.</p>
+          </div>
+          <div class="programador-redes">
+            <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="red-link">GitHub</a>
+          </div>
+        </article>
+
+        <article class="programador-card reveal-card">
+          <div class="programador-avatar">
+            <div class="avatar-placeholder">📱</div>
+            <div class="programador-badge">Mobile</div>
+          </div>
+          <div class="programador-info">
+            <h3 class="programador-nombre">Apps Bluetooth & Automatización</h3>
+            <span class="programador-area">MIT App Inventor / IoT</span>
+            <p class="programador-desc">Aplicaciones móviles orientadas al control domótico mediante conexión bluetooth con placas de hardware libre.</p>
+          </div>
+          <div class="programador-redes">
+            <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="red-link">GitHub</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTO ========== -->
+  <section class="cta-section reveal" id="contacto">
+    <div class="blob blob-cta-1"></div>
+    <div class="blob blob-cta-2"></div>
+    <div class="container cta-inner">
+      <span class="section-tag cta-tag">¿Hacemos algo juntos?</span>
+      <h2 class="cta-title">Conectemos profesionalmente</h2>
+      <p class="cta-subtitle">Si querés sumarme a tu equipo, proponer un proyecto o charlar sobre tecnología, escribime.</p>
+
+      <div class="cta-buttons">
+        <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="btn btn-primary btn-large cta-pulse">
+          <span class="btn-icon">💼</span>
+          Contactar por LinkedIn
+        </a>
+        <a href="mailto:sacudetech@gmail.com" class="btn btn-discord btn-large">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          Mándame un Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">Niko<span class="accent">Brito</span></span>
+        </a>
+        <p class="footer-tagline">Desarrollador Software. Construyendo el futuro.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4 class="footer-heading">Navegación</h4>
+        <a href="#sobre" class="footer-link">Sobre mí</a>
+        <a href="#skills" class="footer-link">Habilidades</a>
+        <a href="#proyectos" class="footer-link">Proyectos</a>
+        <a href="#contacto" class="footer-link">Contacto</a>
+      </div>
+
+      <div class="footer-social">
+        <h4 class="footer-heading">Redes</h4>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="social-btn">LinkedIn</a>
+          <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="social-btn">GitHub</a>
+          <a href="index.html" class="social-btn">Sacude Tech</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Nicolás Brito Pedrocca. Creado con ☕ y código limpio.</p>
+    </div>
+  </footer>
+
+  <script src="Niko/Niko.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sacude Tech — Aprendé programación desde cero</title>
+  <title>Sacude Devs — Aprendé programación desde cero</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -16,13 +16,13 @@
     <div class="container nav-inner">
       <a href="#" class="logo">
         <span class="logo-icon">⚡</span>
-        <span class="logo-text">Sacude<span class="accent">Tech</span></span>
+        <span class="logo-text">Sacude<span class="accent">Devs</span></span>
       </a>
 
       <nav class="nav-links" id="navLinks">
         <a href="#sobre" class="nav-link">Sobre nosotros</a>
         <a href="#cursos" class="nav-link">Cursos</a>
-        <a href="#profesores" class="nav-link">Profes</a>
+        <a href="#programadores" class="nav-link">Programadores</a>
         <a href="#faq" class="nav-link">FAQ</a>
         <a href="#cta" class="btn btn-nav">Unirme ahora</a>
       </nav>
@@ -36,7 +36,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <a href="#sobre" class="nav-link" onclick="closeMobileMenu()">Sobre nosotros</a>
       <a href="#cursos" class="nav-link" onclick="closeMobileMenu()">Cursos</a>
-      <a href="#profesores" class="nav-link" onclick="closeMobileMenu()">Profes</a>
+      <a href="#programadores" class="nav-link" onclick="closeMobileMenu()">Programadores</a>
       <a href="#faq" class="nav-link" onclick="closeMobileMenu()">FAQ</a>
       <a href="#cta" class="btn btn-primary" onclick="closeMobileMenu()">Unirme ahora</a>
     </div>
@@ -121,11 +121,11 @@
           <span class="section-tag">¿Quiénes somos?</span>
           <h2 class="section-title">Una academia que entiende cómo aprendés</h2>
           <p class="sobre-text">
-            En <strong>Sacude Tech</strong> creemos que programar es para todo el mundo. 
+            En <strong>Sacude Devs</strong> creemos que programar es para todo el mundo. 
             No importa si nunca escribiste una línea de código o si ya tenés algo de base.
           </p>
           <p class="sobre-text">
-            Somos un equipo de profes que pasaron por lo mismo que vos: empezar sin saber nada, 
+            Somos un equipo de desarrolladores que pasaron por lo mismo que vos: empezar sin saber nada, 
             frustrarse, y finalmente hacer clic. Por eso enseñamos diferente: sin tanta teoría aburrida, 
             con proyectos reales y siempre cerca tuyo.
           </p>
@@ -239,65 +239,63 @@
     </div>
   </section>
 
-        <!-- ========== PROFESORES ========== -->
-  <section class="profesores reveal" id="profesores">
+  <!-- ========== PROGRAMADORES ========== -->
+  <section class="programadores reveal" id="programadores">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">El equipo</span>
         <h2 class="section-title">Los programadores que forman parte del proyecto</h2>
       </div>
 
-      <div class="profes-grid">
+      <div class="programadores-grid">
 
-        <!-- Profe 1 -->
-        <article class="profe-card reveal-card">
-          <div class="profe-avatar">
-            <div class="avatar-placeholder">🧑‍💻</div>
-            <div class="profe-badge">Fundador</div>
-          </div>
-          <div class="profe-info">
-            <h3 class="profe-nombre">Nicolás Brito Pedrocca</h3>
-            <span class="profe-area">Tecnico Superior en Desarrollo de Software</span>
-            <p class="profe-desc">Apasionado del frontend moderno. Como programador y desarrollador, llevo años enseñando y creo que cualquiera puede aprender a programar si tiene el acompañamiento correcto.</p>
-          </div>
-          <div class="profe-redes">
-            <a href="https://www.linkedin.com/in/nikochittoo/" class="red-link">LinkedIn</a>
-          </div>
-        </article>
+        <!-- Programador 1 -->
+  <article class="programador-card reveal-card" onclick="window.location.href='Niko/Niko.html';" style="cursor: pointer;">
+  <div class="programador-avatar">
+    <div class="avatar-placeholder">🧑‍💻</div>
+    <div class="programador-badge">Fundador</div>
+  </div>
+  <div class="programador-info">
+    <h3 class="programador-nombre">Nicolás Brito Pedrocca</h3>
+    <span class="programador-area">Tecnico Superior en Desarrollo de Software</span>
+    <p class="programador-desc">Apasionado del frontend moderno. Como programador y desarrollador, llevo años enseñando y creo que cualquiera puede aprender a programar si tiene el acompañamiento correcto.</p>
+  </div>
+  <div class="programador-redes" onclick="event.stopPropagation();">
+    <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
+  </div>
+</article>
 
-        <!-- Profe 2 -->
-        <article class="profe-card reveal-card">
-          <div class="profe-avatar">
-            <div class="avatar-placeholder">🧑‍💻</div>
-            <div class="profe-badge">Co-Fundador</div>
-          </div>
-          <div class="profe-info">
-            <h3 class="profe-nombre">Valentín Saldaño</h3>
-            <span class="profe-area">Tecnico Superior en Desarrollo de Software</span>
-            <p class="profe-desc">Como desarrolladora de software, me encanta hacer que conceptos complejos suenen simples. Si no entendiste, la culpa es mía.</p>
-          </div>
-          <div class="profe-redes">
-            <a href="#" class="red-link">GitHub</a>
-            <a href="https://www.linkedin.com/in/valentin-salda%C3%B1o-aab18125a/" class="red-link">LinkedIn</a>
-          </div>
-        </article>
+        <!-- Programador 2 -->
+  <article class="programador-card reveal-card" onclick="window.location.href='Valen/Valen.html';" style="cursor: pointer;">
+  <div class="programador-avatar">
+    <div class="avatar-placeholder">🧑‍💻</div>
+    <div class="programador-badge">Co-Fundador</div>
+  </div>
+  <div class="programador-info">
+    <h3 class="programador-nombre">Valentín Saldano</h3>
+    <span class="programador-area">Tecnico Superior en Desarrollo de Software</span>
+    <p class="programador-desc">Apasionado del frontend moderno. Como programador y desarrollador, llevo años enseñando y creo que cualquiera puede aprender a programar si tiene el acompañamiento correcto.</p>
+  </div>
+  <div class="programador-redes" onclick="event.stopPropagation();">
+    <a href="https://www.linkedin.com/in/valentin-salda%C3%B1o-aab18125a/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
+  </div>
+</article>
 
-        <!-- Profe 3 -->
-        <article class="profe-card reveal-card">
-          <div class="profe-avatar">
-            <div class="avatar-placeholder">🧑‍💻</div>
-            <div class="profe-badge">Co-Fundador</div>
-          </div>
-          <div class="profe-info">
-            <h3 class="profe-nombre">Gabriel Dagna</h3>
-            <span class="profe-area">Analista en Sistemas</span>
-            <p class="profe-desc">Desarrollador enfocado en el servidor. Trabajo construyendo sistemas robustos y quiero que vos también puedas crear el backend de tus proyectos.</p>
-          </div>
-          <div class="profe-redes">
-            <a href="#" class="red-link">GitHub</a>
-            <a href="#" class="red-link">LinkedIn</a>
-          </div>
-        </article>
+        <!-- Programador 3 -->
+  <article class="programador-card reveal-card" onclick="window.location.href='Gabriel/Gabriel.html';" style="cursor: pointer;">
+  <div class="programador-avatar">
+    <div class="avatar-placeholder">🧑‍💻</div>
+    <div class="programador-badge">Co-Fundador</div>
+  </div>
+  <div class="programador-info">
+    <h3 class="programador-nombre">Gabriel Dagna</h3>
+    <span class="programador-area">Analista en Sistemas</span>
+    <p class="programador-desc">Desarrollador enfocado en el servidor. Trabajo construyendo sistemas robustos y quiero que vos también puedas crear el backend de tus proyectos.</p>
+  </div>
+  <div class="programador-redes" onclick="event.stopPropagation();">
+    <a href="https://www.linkedin.com/in/gabriel-dagna-062b2025a/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
+  </div>
+</article>
 
       </div>
     </div>
@@ -330,7 +328,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Combinamos ambos. Tenés clases grabadas para ver a tu ritmo y sesiones de tutoría en vivo donde podés preguntar, practicar y resolver dudas en tiempo real con el profe.</p>
+            <p>Combinamos ambos. Tenés clases grabadas para ver a tu ritmo y sesiones de tutoría en vivo donde podés preguntar, practicar y resolver dudas en tiempo real con el programador a cargo.</p>
           </div>
         </div>
 
@@ -360,7 +358,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Sí, al completar cada curso recibís un certificado digital de Sacude Tech que podés compartir en tu LinkedIn o en tu portfolio. Es tuyo para siempre.</p>
+            <p>Sí, al completar cada curso recibís un certificado digital de Sacude Devs que podés compartir en tu LinkedIn o en tu portfolio. Es tuyo para siempre.</p>
           </div>
         </div>
 
@@ -410,7 +408,7 @@
       <div class="footer-brand">
         <a href="#" class="logo">
           <span class="logo-icon">⚡</span>
-          <span class="logo-text">Sacude<span class="accent">Tech</span></span>
+          <span class="logo-text">Sacude<span class="accent">Devs</span></span>
         </a>
         <p class="footer-tagline">Aprendé programación. Construí tu futuro.</p>
       </div>
@@ -419,7 +417,7 @@
         <h4 class="footer-heading">Navegación</h4>
         <a href="#sobre" class="footer-link">Sobre nosotros</a>
         <a href="#cursos" class="footer-link">Cursos</a>
-        <a href="#profesores" class="footer-link">Profes</a>
+        <a href="#programadores" class="footer-link">Programadores</a>
         <a href="#faq" class="footer-link">FAQ</a>
       </div>
 
@@ -446,7 +444,7 @@
           </a>
 
           <!-- Gmail -->
-          <a href="mailto:sacudetech@gmail.com" class="social-btn" aria-label="Email">
+          <a href="mailto:sacudeDevs@gmail.com" class="social-btn" aria-label="Email">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <polyline points="2,4 12,13 22,4"/>
@@ -459,10 +457,10 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© 2025 Sacude Tech. Hecho con ☕ y muchas ganas de enseñar.</p>
+      <p>© 2026 Sacude Devs. Hecho con ☕ y muchas ganas de enseñar.</p>
     </div>
   </footer>
 
   <script src="Page/app.js"></script>
 </body>
-</html>
+</html> 

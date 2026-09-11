@@ -1,5 +1,5 @@
 /* =============================================
-   SACUDE TECH — Landing Page Styles
+   SACUDE DEVS — Landing Page Styles
    Paleta: #F7C948 | #F97316 | #0F172A
    Fuente: Poppins
    ============================================= */
@@ -14,12 +14,12 @@
 :root {
   --yellow:   #F7C948;
   --orange:   #F97316;
-  --dark:     #0F172A;
-  --dark2:    #1E293B;
-  --dark3:    #334155;
-  --light:    #F8FAFC;
-  --muted:    #94A3B8;
-  --white:    #ffffff;
+  --dark:    #0F172A;
+  --dark2:   #1E293B;
+  --dark3:   #334155;
+  --light:   #F8FAFC;
+  --muted:   #94A3B8;
+  --white:   #ffffff;
   --discord:  #5865F2;
   --whatsapp: #25D366;
 
@@ -687,19 +687,19 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 .curso-btn:hover { color: var(--orange); letter-spacing: .02em; }
 
-/* ---------- PROFESORES (DESARROLLADORES) ---------- */
-.profesores {
+/* ---------- PROGRAMADORES ---------- */
+.programadores {
   padding: 7rem 0;
   background: var(--dark2);
 }
 
-.profes-grid {
+.programadores-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-.profe-card {
+.programador-card {
   background: rgba(15,23,42,.6);
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
@@ -710,13 +710,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   transition: var(--transition);
 }
 
-.profe-card:hover {
+.programador-card:hover {
   border-color: rgba(247,201,72,.2);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
-.profe-avatar {
+.programador-avatar {
   position: relative;
   width: 80px;
 }
@@ -733,7 +733,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   font-size: 2.2rem;
 }
 
-.profe-badge {
+.programador-badge {
   position: absolute;
   bottom: -4px;
   right: -8px;
@@ -746,16 +746,16 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   white-space: nowrap;
 }
 
-.profe-info { flex: 1; }
+.programador-info { flex: 1; }
 
-.profe-nombre {
+.programador-nombre {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--white);
   margin-bottom: .25rem;
 }
 
-.profe-area {
+.programador-area {
   display: inline-block;
   font-size: .75rem;
   color: var(--yellow);
@@ -765,13 +765,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   text-transform: uppercase;
 }
 
-.profe-desc {
+.programador-desc {
   font-size: .88rem;
   color: var(--muted);
   line-height: 1.6;
 }
 
-.profe-redes {
+.programador-redes {
   display: flex;
   gap: .75rem;
 }
@@ -1083,7 +1083,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .stat-num { font-size: 1.3rem; }
 
   .cursos-grid { grid-template-columns: 1fr; }
-  .profes-grid { grid-template-columns: 1fr; }
+  .programadores-grid { grid-template-columns: 1fr; }
 
   .cta-buttons { flex-direction: column; align-items: center; }
   .cta-buttons .btn { width: 100%; max-width: 340px; justify-content: center; }
