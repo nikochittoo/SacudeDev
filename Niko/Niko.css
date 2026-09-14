@@ -920,7 +920,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* Scroll reveal */
 .reveal {
-  opacity: 0;
   transform: translateY(40px);
   transition: opacity .7s ease, transform .7s ease;
 }
@@ -931,7 +930,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .reveal-card {
-  opacity: 0;
   transform: translateY(30px);
   transition: opacity .6s ease, transform .6s ease;
 }
