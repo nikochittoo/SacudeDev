@@ -222,7 +222,11 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   letter-spacing: -.02em;
 }
 
-.logo-icon { font-size: 1.3rem; }
+.logo-icon {
+  width: 40px;
+  height: auto;
+  display: block;
+}
 
 .logo-text .accent { color: var(--yellow); }
 
@@ -573,19 +577,19 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   color: var(--yellow);
 }
 
-/* ---------- CURSOS ---------- */
-.cursos {
+/* ---------- SERVICIOS ---------- */
+.servicios {
   padding: 7rem 0;
   background: var(--dark);
 }
 
-.cursos-grid {
+.servicios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
-.curso-card {
+.servicio-card {
   background: rgba(30,41,59,.6);
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
@@ -597,32 +601,32 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   cursor: default;
 }
 
-.curso-card:hover {
+.servicio-card:hover {
   border-color: rgba(247,201,72,.25);
   background: rgba(30,41,59,.9);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg), 0 0 30px rgba(247,201,72,.06);
 }
 
-.curso-card-pronto {
+.servicio-card-pronto {
   opacity: .65;
   filter: grayscale(.3);
 }
 
-.curso-card-pronto:hover {
+.servicio-card-pronto:hover {
   opacity: .8;
   filter: grayscale(0);
 }
 
-.curso-header {
+.servicio-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.curso-icon { font-size: 2.2rem; }
+.servicio-icon { font-size: 2.2rem; }
 
-.curso-nivel {
+.servicio-nivel {
   font-size: .7rem;
   font-weight: 700;
   letter-spacing: .08em;
@@ -649,21 +653,21 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border: 1px solid rgba(147,51,234,.25);
 }
 
-.curso-nombre {
+.servicio-nombre {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--white);
   margin: 0;
 }
 
-.curso-desc {
+.servicio-desc {
   font-size: .88rem;
   color: var(--muted);
   flex: 1;
   line-height: 1.6;
 }
 
-.curso-footer {
+.servicio-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -671,13 +675,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border-top: 1px solid rgba(255,255,255,.06);
 }
 
-.curso-duracion {
+.servicio-duracion {
   font-size: .8rem;
   color: var(--muted);
   font-weight: 500;
 }
 
-.curso-btn {
+.servicio-btn {
   color: var(--yellow);
   text-decoration: none;
   font-size: .85rem;
@@ -685,7 +689,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   transition: gap var(--transition), color var(--transition);
 }
 
-.curso-btn:hover { color: var(--orange); letter-spacing: .02em; }
+.servicio-btn:hover { color: var(--orange); letter-spacing: .02em; }
 
 /* ---------- PROGRAMADORES ---------- */
 .programadores {
@@ -1082,7 +1086,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .hero-stats { gap: 1.25rem; padding: 1rem 1.5rem; }
   .stat-num { font-size: 1.3rem; }
 
-  .cursos-grid { grid-template-columns: 1fr; }
+  .servicios-grid { grid-template-columns: 1fr; }
   .programadores-grid { grid-template-columns: 1fr; }
 
   .cta-buttons { flex-direction: column; align-items: center; }
