@@ -88,22 +88,22 @@ revealCards.forEach((el) => cardObserver.observe(el));
 
 
 // ── Smooth active link highlight en navbar ──
-const navLinkEls = document.querySelectorAll('.nav-links .nav-link, .mobile-menu .nav-link');
-const sections   = document.querySelectorAll('section[id]');
+// const navLinkEls = document.querySelectorAll('.nav-links .nav-link, .mobile-menu .nav-link');
+// const sections   = document.querySelectorAll('section[id]');
 
-const linkObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navLinkEls.forEach((link) => {
-        link.classList.toggle(
-          'active-link',
-          link.getAttribute('href') === `#${id}`
-        );
-      });
-    }
-  });
-}, { threshold: 0.35 });
+// const linkObserver = new IntersectionObserver((entries) => {
+//   entries.forEach((entry) => {
+//     if (entry.isIntersecting) {
+//       const id = entry.target.getAttribute('id');
+//       navLinkEls.forEach((link) => {
+//         link.classList.toggle(
+//           'active-link',
+//           link.getAttribute('href') === `#${id}`
+//         );
+//       });
+//     }
+//   });
+// }, { threshold: 0.35 });
 
 sections.forEach((sec) => linkObserver.observe(sec));
 
