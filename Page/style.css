@@ -22,6 +22,7 @@
   --white:        #ffffff;
   --discord:      #5865F2;
   --whatsapp:     #25D366;
+  --email: #2563eb; /* O el tono de azul/violeta que prefieras para tu marca */
 
   --radius-sm:  8px;
   --radius-md:  14px;
@@ -1101,4 +1102,15 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .hero-actions .btn { width: 100%; max-width: 320px; justify-content: center; }
   .hero-stats { flex-direction: column; gap: 1rem; }
   .stat-divider { width: 40px; height: 1px; }
+}
+
+.btn-email {
+  background: var(--email);
+  color: var(--white);
+  box-shadow: 0 4px 24px rgba(37,99,235,.3);
+}
+
+.btn-email:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37,99,235,.5);
 }
