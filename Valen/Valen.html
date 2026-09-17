@@ -1,12 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Valen.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentin Saldaño — Sacude Devs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Valen.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
-    
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo">
+        <img src="Img/Logo/Naranja.png" alt="Sacude Devs" class="logo-icon">
+        <span class="logo-text">Sacude<span class="accent">Devs</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#perfil" class="nav-link">Perfil</a>
+        <a href="#info" class="nav-link">Sobre mí</a>
+        <a href="#proyectos" class="nav-link">Proyectos</a>
+        <a href="#eventos" class="nav-link">Eventos</a>
+        <a href="../index.html" class="btn btn-nav">← Volver al inicio</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#perfil" class="nav-link" onclick="closeMobileMenu()">Perfil</a>
+      <a href="#info" class="nav-link" onclick="closeMobileMenu()">Sobre mí</a>
+      <a href="#proyectos" class="nav-link" onclick="closeMobileMenu()">Proyectos</a>
+      <a href="#eventos" class="nav-link" onclick="closeMobileMenu()">Eventos</a>
+      <a href="../index.html" class="btn btn-primary" onclick="closeMobileMenu()">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <!-- ========== HERO / ENCABEZADO PRINCIPAL ========== -->
+  <section class="hero-perfil" id="perfil" style="padding: 10rem 0 5rem; text-align: center; position: relative;">
+    <div class="blob blob-1"></div>
+    <div class="container hero-inner">
+      <div class="avatar-placeholder-gigante" style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, rgba(192,132,252,.15), rgba(124,58,237,.1)); border: 2px solid rgba(192,132,252,.3); display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin: 0 auto 1.5rem;">⚡</div>
+      
+      <h1 class="hero-title fade-in" style="font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 0.5rem;">
+        Valentín<br/>
+        <span class="highlight">Saldaño</span>
+      </h1>
+      
+      <h3 class="perfil-titulo fade-in delay-1" style="font-size: 1.1rem; color: var(--muted); font-weight: 500; margin-bottom: 1rem;">
+        Desarrollador de Software
+      </h3>
+       <h5 class="perfil-titulo fade-in delay-1" style="font-size: 1.1rem; color: var(--muted); font-weight: 500; margin-bottom: 1rem;">
+        Profesor en Educación Tecnológica y Ciencias de la Computación
+      </h5>
+
+
+      <div class="fade-in delay-2">
+        <span class="perfil-rol-badge" style="display: inline-block; font-size: .85rem; font-weight: 700; color: var(--violet-light); background: rgba(192,132,252,.1); border: 1px solid rgba(192,132,252,.25); padding: 0.3rem 1rem; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em;">
+          Co-fundador y Developer en Sacude Devs
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECCIÓN: INFO BÁSICA (Quiénes somos / Hobbys) ========== -->
+  <section class="sobre reveal" id="info">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Conoceme</span>
+        <h2 class="section-title">Sobre mí & Pasiones</h2>
+        <p class="section-subtitle">Lo que hay detrás de cada línea de código y diseño.</p>
+      </div>
+
+      <div class="sobre-grid">
+        <!-- Tarjeta Quiénes somos / Sobre mí -->
+        <div class="servicio-card" style="padding: 2.5rem;">
+          <div class="servicio-header" style="margin-bottom: 1rem;">
+            <div class="servicio-icon">💡</div>
+            <span class="servicio-nivel nivel-inicial">Filosofía</span>
+          </div>
+          <h3 class="servicio-nombre" style="font-size: 1.3rem; margin-bottom: 1rem;">¿Quién soy?</h3>
+          <p class="servicio-desc" style="font-size: 0.95rem;">
+            Apasionado por la tecnología, el desarrollo web moderno y la docencia. Creo firmemente que la programación es una herramienta de transformación social y busco crear interfaces que combinen potencia técnica con un diseño limpio y humano.
+          </p>
+        </div>
+
+        <!-- Tarjeta Hobbys -->
+        <div class="servicio-card" style="padding: 2.5rem;">
+          <div class="servicio-header" style="margin-bottom: 1rem;">
+            <div class="servicio-icon">🎮</div>
+            <span class="servicio-nivel nivel-intermedio">Personal</span>
+          </div>
+          <h3 class="servicio-nombre" style="font-size: 1.3rem; margin-bottom: 1rem;">Hobbys & Intereses</h3>
+          <p class="servicio-desc" style="font-size: 0.95rem;">
+            Desarrollo de videojuegos indie (JRPGs con Godot), resolución de cubos Rubik, entrenamiento físico diario, cultivo de plantas en casa y fanático indiscutido del buen mate durante las largas sesiones de desarrollo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECCIÓN: PROYECTOS INDIVIDUALES ========== -->
+  <section class="servicios reveal" id="proyectos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio Personal</span>
+        <h2 class="section-title">Proyectos Individuales</h2>
+        <p class="section-subtitle">Desarrollos propios, videojuegos y aplicaciones interactivas.</p>
+      </div>
+
+      <div class="servicios-grid">
+
+        <!-- Proyecto 1 -->
+        <article class="servicio-card">
+          <div class="servicio-header">
+            <div class="servicio-icon">🕹️</div>
+            <span class="servicio-nivel nivel-inicial">Videojuego JRPG</span>
+          </div>
+          <h3 class="servicio-nombre">NEXORIA (Sacude Game)</h3>
+          <p class="servicio-desc">Juego 2D pixel art desarrollado en Godot 4.7 con movimiento en grilla, combate por turnos y tres Vexels iniciales con mecánicas personalizadas.</p>
+          <div class="servicio-footer">
+            <span class="servicio-duracion">Godot / GDScript</span>
+            <a href="#contacto" class="servicio-btn">Ver más →</a>
+          </div>
+        </article>
+
+        <!-- Proyecto 2 -->
+        <article class="servicio-card">
+          <div class="servicio-header">
+            <div class="servicio-icon">🧬</div>
+            <span class="servicio-nivel nivel-intermedio">Biotecnología Web</span>
+          </div>
+          <h3 class="servicio-nombre">Simulador de Ecosistema</h3>
+          <p class="servicio-desc">Juego interactivo web basado en HTML, CSS, JavaScript y Web Audio API con mecánicas drag-and-drop para divulgación de biotecnología.</p>
+          <div class="servicio-footer">
+            <span class="servicio-duracion">Frontend / Web</span>
+            <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="servicio-btn">GitHub →</a>
+          </div>
+        </article>
+
+        <!-- Proyecto 3 -->
+        <article class="servicio-card">
+          <div class="servicio-header">
+            <div class="servicio-icon">🤖</div>
+            <span class="servicio-nivel nivel-avanzado">Hardware / IoT</span>
+          </div>
+          <h3 class="servicio-nombre">Inventario Arduino & Apps</h3>
+          <p class="servicio-desc">Programas de control de stock en PSeInt y C++, complementados con aplicaciones móviles en MIT App Inventor conectadas por Bluetooth.</p>
+          <div class="servicio-footer">
+            <span class="servicio-duracion">C++ / PSeInt</span>
+            <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="servicio-btn">GitHub →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECCIÓN: TRABAJO O PARTICIPACIÓN A EVENTOS / HACKATHONS ========== -->
+  <section class="programadores reveal" id="eventos">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Comunidad & Trayectoria</span>
+        <h2 class="section-title">Eventos & Hackathons</h2>
+        <p class="section-subtitle">Participaciones destacadas, organización y eventos tecnológicos.</p>
+      </div>
+
+      <div class="programadores-grid">
+
+        <article class="programador-card">
+          <div class="programador-avatar">
+            <div class="avatar-placeholder">🚀</div>
+            <div class="programador-badge">NASA</div>
+          </div>
+          <div class="programador-info">
+            <h3 class="programador-nombre">NASA Space Apps Challenge 2026</h3>
+            <span class="programador-area">Co-Organizador & Desarrollador Web</span>
+            <p class="programador-desc">Encargado de la maquetación y programación del sitio web oficial del evento en Santa Rosa de Calamuchita, carruseles de sponsors y diseño responsive.</p>
+          </div>
+          <div class="programador-redes">
+            <span class="red-link">Edición 2026</span>
+          </div>
+        </article>
+
+        <article class="programador-card">
+          <div class="programador-avatar">
+            <div class="avatar-placeholder">🏫</div>
+            <div class="programador-badge">ISPT</div>
+          </div>
+          <div class="programador-info">
+            <h3 class="programador-nombre">Prácticas & Docencia Tecnológica</h3>
+            <span class="programador-area">Profesorado en Informática</span>
+            <p class="programador-desc">Desarrollo de clases interactivas, simulaciones en Tinkercad, diseño de material didáctico y prácticas pedagógicas en escuelas técnicas de nivel secundario.</p>
+          </div>
+          <div class="programador-redes">
+            <span class="red-link">Docencia</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">Sacude<span class="accent">Devs</span></span>
+        </a>
+        <p class="footer-tagline">Creamos software y soluciones web a medida.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4 class="footer-heading">Navegación</h4>
+        <div><a href="#perfil" class="footer-link">Perfil</a></div>
+        <div><a href="#info" class="footer-link">Sobre mí</a></div>
+        <div><a href="#proyectos" class="footer-link">Proyectos</a></div>
+        <div><a href="#eventos" class="footer-link">Eventos</a></div>
+      </div>
+
+      <div class="footer-social">
+        <h4 class="footer-heading">Contacto</h4>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="social-btn">LinkedIn</a>
+          <a href="https://github.com/nikochittoo" target="_blank" rel="noopener" class="social-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Nicolás Brito Pedrocca — Sacude Devs. Hecho con ☕ y código limpio.</p>
+    </div>
+  </footer>
+
+  <script src="Niko/Niko.js"></script>
 </body>
 </html>
