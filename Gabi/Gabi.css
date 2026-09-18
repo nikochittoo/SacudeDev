@@ -181,7 +181,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   left: 0;
   right: 0;
   z-index: 100;
-  transition: var(--transition);
   padding: 1rem 0;
 }
 
