@@ -1,8 +1,8 @@
 /* =============================================
-    SACUDE DEVS — Niko Portfolio Styles
-    Paleta: #F7C948 | #F97316 | #0F172A
-    Fuente: Poppins
-    ============================================= */
+   SACUDE TECH — Landing Page Styles
+   Paleta: #F7C948 | #F97316 | #0F172A
+   Fuente: Poppins
+   ============================================= */
 
 /* ---------- RESET & BASE ---------- */
 *, *::before, *::after {
@@ -165,6 +165,17 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   box-shadow: 0 8px 32px rgba(88,101,242,.55);
 }
 
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: var(--white);
+  box-shadow: 0 4px 24px rgba(37,211,102,.3);
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37,211,102,.5);
+}
+
 .btn-disabled {
   opacity: .55;
   cursor: not-allowed;
@@ -181,6 +192,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   left: 0;
   right: 0;
   z-index: 100;
+  transition: var(--transition);
   padding: 1rem 0;
 }
 
@@ -453,7 +465,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .c-str { color: #34D399; }
 .c-fn  { color: #A78BFA; }
 
-/* ---------- SOBRE MÍ ---------- */
+/* ---------- SOBRE ---------- */
 .sobre {
   padding: 7rem 0;
   background: var(--dark2);
@@ -463,8 +475,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .sobre-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: stretch;
+  gap: 4rem;
+  align-items: center;
 }
 
 .sobre-visual {
@@ -561,19 +573,19 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   color: var(--yellow);
 }
 
-/* ---------- SERVICIOS / PROYECTOS INDIVIDUALES ---------- */
-.servicios {
+/* ---------- CURSOS ---------- */
+.cursos {
   padding: 7rem 0;
   background: var(--dark);
 }
 
-.servicios-grid {
+.cursos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
-.servicio-card {
+.curso-card {
   background: rgba(30,41,59,.6);
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
@@ -585,22 +597,32 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   cursor: default;
 }
 
-.servicio-card:hover {
+.curso-card:hover {
   border-color: rgba(247,201,72,.25);
   background: rgba(30,41,59,.9);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg), 0 0 30px rgba(247,201,72,.06);
 }
 
-.servicio-header {
+.curso-card-pronto {
+  opacity: .65;
+  filter: grayscale(.3);
+}
+
+.curso-card-pronto:hover {
+  opacity: .8;
+  filter: grayscale(0);
+}
+
+.curso-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.servicio-icon { font-size: 2.2rem; }
+.curso-icon { font-size: 2.2rem; }
 
-.servicio-nivel {
+.curso-nivel {
   font-size: .7rem;
   font-weight: 700;
   letter-spacing: .08em;
@@ -627,21 +649,21 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border: 1px solid rgba(147,51,234,.25);
 }
 
-.servicio-nombre {
+.curso-nombre {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--white);
   margin: 0;
 }
 
-.servicio-desc {
+.curso-desc {
   font-size: .88rem;
   color: var(--muted);
   flex: 1;
   line-height: 1.6;
 }
 
-.servicio-footer {
+.curso-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -649,35 +671,35 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border-top: 1px solid rgba(255,255,255,.06);
 }
 
-.servicio-duracion {
+.curso-duracion {
   font-size: .8rem;
   color: var(--muted);
   font-weight: 500;
 }
 
-.servicio-btn {
+.curso-btn {
   color: var(--yellow);
   text-decoration: none;
   font-size: .85rem;
   font-weight: 700;
-  transition: color var(--transition);
+  transition: gap var(--transition), color var(--transition);
 }
 
-.servicio-btn:hover { color: var(--orange); }
+.curso-btn:hover { color: var(--orange); letter-spacing: .02em; }
 
-/* ---------- PROYECTOS / PROGRAMADORES ---------- */
-.programadores {
+/* ---------- PROFESORES ---------- */
+.profesores {
   padding: 7rem 0;
   background: var(--dark2);
 }
 
-.programadores-grid {
+.profes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-.programador-card {
+.profe-card {
   background: rgba(15,23,42,.6);
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
@@ -688,13 +710,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   transition: var(--transition);
 }
 
-.programador-card:hover {
+.profe-card:hover {
   border-color: rgba(247,201,72,.2);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
-.programador-avatar {
+.profe-avatar {
   position: relative;
   width: 80px;
 }
@@ -711,7 +733,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   font-size: 2.2rem;
 }
 
-.programador-badge {
+.profe-badge {
   position: absolute;
   bottom: -4px;
   right: -8px;
@@ -724,16 +746,16 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   white-space: nowrap;
 }
 
-.programador-info { flex: 1; }
+.profe-info { flex: 1; }
 
-.programador-nombre {
+.profe-nombre {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--white);
   margin-bottom: .25rem;
 }
 
-.programador-area {
+.profe-area {
   display: inline-block;
   font-size: .75rem;
   color: var(--yellow);
@@ -743,13 +765,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   text-transform: uppercase;
 }
 
-.programador-desc {
+.profe-desc {
   font-size: .88rem;
   color: var(--muted);
   line-height: 1.6;
 }
 
-.programador-redes {
+.profe-redes {
   display: flex;
   gap: .75rem;
 }
@@ -768,6 +790,92 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .red-link:hover {
   color: var(--yellow);
   border-color: rgba(247,201,72,.3);
+}
+
+/* ---------- FAQ ---------- */
+.faq {
+  padding: 7rem 0;
+  background: var(--dark);
+}
+
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+
+.faq-item {
+  background: rgba(30,41,59,.5);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.faq-item.open {
+  border-color: rgba(247,201,72,.2);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.faq-question:hover { color: var(--yellow); }
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  font-style: normal;
+  line-height: 1;
+}
+
+.faq-item.open .faq-icon {
+  background: var(--yellow);
+  color: var(--dark);
+  border-color: var(--yellow);
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s cubic-bezier(.4,0,.2,1), padding .4s;
+  padding: 0 1.5rem;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding-bottom: 1.25rem;
+}
+
+.faq-answer p {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.7;
 }
 
 /* ---------- CTA SECTION ---------- */
@@ -928,6 +1036,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* Scroll reveal */
 .reveal {
+  opacity: 0;
   transform: translateY(40px);
   transition: opacity .7s ease, transform .7s ease;
 }
@@ -938,6 +1047,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .reveal-card {
+  opacity: 0;
   transform: translateY(30px);
   transition: opacity .6s ease, transform .6s ease;
 }
@@ -951,6 +1061,9 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .reveal-card:nth-child(1) { transition-delay: .05s; }
 .reveal-card:nth-child(2) { transition-delay: .12s; }
 .reveal-card:nth-child(3) { transition-delay: .19s; }
+.reveal-card:nth-child(4) { transition-delay: .26s; }
+.reveal-card:nth-child(5) { transition-delay: .33s; }
+.reveal-card:nth-child(6) { transition-delay: .40s; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) {
@@ -969,8 +1082,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .hero-stats { gap: 1.25rem; padding: 1rem 1.5rem; }
   .stat-num { font-size: 1.3rem; }
 
-  .servicios-grid { grid-template-columns: 1fr; }
-  .programadores-grid { grid-template-columns: 1fr; }
+  .cursos-grid { grid-template-columns: 1fr; }
+  .profes-grid { grid-template-columns: 1fr; }
 
   .cta-buttons { flex-direction: column; align-items: center; }
   .cta-buttons .btn { width: 100%; max-width: 340px; justify-content: center; }
