@@ -12,8 +12,8 @@
 }
 
 :root {
-  --violet-light: #6C2BD9; /* Tonalidad violeta clara */
-  --violet-dark:  #24103F; /* Tonalidad violeta principal */
+  --violet-light: #24103F; /* Tonalidad violeta clara */
+  --violet-dark:  #0f011c; /* Tonalidad violeta principal */
   --orange: #F97316;
   --yellow: #F7C948;
   --dark:         #0F172A;
@@ -47,7 +47,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--dark);
+  background: var(--violet-dark);
   color: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
@@ -470,7 +470,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- SOBRE ---------- */
 .sobre {
   padding: 7rem 0;
-  background: var(--dark2);
+  background: var(--violet-light);
   position: relative;
 }
 
@@ -578,7 +578,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- SERVICIOS ---------- */
 .servicios {
   padding: 7rem 0;
-  background: var(--dark);
+  background: var(--violet-dark);
 }
 
 .servicios-grid {
@@ -710,7 +710,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- PROGRAMADORES ---------- */
 .programadores {
   padding: 7rem 0;
-  background: var(--dark2);
+  background: var(--violet-light);
 }
 
 .programadores-grid {
@@ -815,7 +815,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- FAQ ---------- */
 .faq {
   padding: 7rem 0;
-  background: var(--dark);
+  background: var(--violet-dark);
 }
 
 .faq-list {
@@ -902,7 +902,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   position: relative;
   padding: 8rem 0;
   overflow: hidden;
-  background: var(--dark2);
+  background: var(--violet-dark);
 }
 
 .blob-cta-1 {
@@ -963,8 +963,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* ---------- FOOTER ---------- */
 .footer {
-  background: rgba(8,16,32,1);
-  border-top: 1px solid rgba(255,255,255,.06);
+  background: var(--violet-dark);
   padding: 4rem 0 0;
 }
 
