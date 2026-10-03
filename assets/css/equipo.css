@@ -22,6 +22,8 @@
   --white:    #ffffff;
   --discord:  #5865F2;
   --whatsapp: #25D366;
+   --violet-light: #24103F; /* Tonalidad violeta clara */
+  --violet-dark:  #0f011c; /* Tonalidad violeta principal */
 
   --radius-sm:  8px;
   --radius-md:  14px;
@@ -44,7 +46,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--dark);
+  background: var(--violet-dark);
   color: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
@@ -185,7 +187,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .navbar.scrolled {
-  background: rgba(15,23,42,.85);
+  background: var(--violet-dark);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,.06);
@@ -210,9 +212,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   letter-spacing: -.02em;
 }
 
-.logo-icon { font-size: 1.3rem; }
+.logo-icon {
+  width: 40px;
+  height: auto;
+  display: block;
+}
 
-.logo-text .accent { color: var(--yellow); }
+.logo-text .accent { color: var(--orange); }
 
 .nav-links {
   display: flex;
@@ -260,7 +266,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  background: rgba(15,23,42,.97);
+  background: var(--violet-dark);
   backdrop-filter: blur(20px);
   padding: 2rem 1.5rem;
   border-top: 1px solid rgba(255,255,255,.06);
@@ -301,7 +307,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .blob-1 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(247,201,72,.18) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--violet-light) 0%, transparent 70%);
   top: -100px;
   right: -100px;
 }
@@ -309,7 +315,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .blob-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(249,115,22,.15) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--violet-light) 0%, transparent 70%);
   bottom: 0;
   left: -80px;
 }
@@ -456,7 +462,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- SOBRE MÍ ---------- */
 .sobre {
   padding: 7rem 0;
-  background: var(--dark2);
+  background: var(--violet-light);
   position: relative;
 }
 
@@ -564,7 +570,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- SERVICIOS / PROYECTOS INDIVIDUALES ---------- */
 .servicios {
   padding: 7rem 0;
-  background: var(--dark);
+  background: var(--violet-dark);
 }
 
 .servicios-grid {
@@ -574,7 +580,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .servicio-card {
-  background: rgba(30,41,59,.6);
+  background: #fcc8841a;
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
   padding: 1.75rem;
@@ -587,7 +593,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 .servicio-card:hover {
   border-color: rgba(247,201,72,.25);
-  background: rgba(30,41,59,.9);
+  background: #fcc88425;
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg), 0 0 30px rgba(247,201,72,.06);
 }
@@ -668,7 +674,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- PROYECTOS / PROGRAMADORES ---------- */
 .programadores {
   padding: 7rem 0;
-  background: var(--dark2);
+  background: var(--violet-light);
 }
 
 .programadores-grid {
@@ -678,7 +684,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .programador-card {
-  background: rgba(15,23,42,.6);
+  background: #fcc8841a;
   border: 1px solid rgba(255,255,255,.07);
   border-radius: var(--radius-md);
   padding: 2rem;
@@ -689,7 +695,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .programador-card:hover {
-  border-color: rgba(247,201,72,.2);
+  background: #fcc88425;
+  border-color: var(--orange);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
@@ -703,8 +710,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(247,201,72,.15), rgba(249,115,22,.1));
-  border: 2px solid rgba(247,201,72,.25);
+  background: linear-gradient(135deg, rgba(192, 132, 252, .15), rgba(124, 58, 237, .1));
+  border: 2px solid rgba(192,132,252,.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -836,7 +843,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* ---------- FOOTER ---------- */
 .footer {
-  background: rgba(8,16,32,1);
+  background: var(--violet-dark);
   border-top: 1px solid rgba(255,255,255,.06);
   padding: 4rem 0 0;
 }
