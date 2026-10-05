@@ -699,15 +699,16 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .programador-avatar {
-  position: relative;
-  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
 }
 
 .avatar-placeholder {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(192, 132, 252, .15), rgba(124, 58, 237, .1));
+  background: linear-gradient(135deg, rgba(192,132,252,.15), rgba(124,58,237,.1));
   border: 2px solid rgba(192,132,252,.25);
   display: flex;
   align-items: center;
@@ -716,11 +717,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .programador-badge {
-  position: absolute;
-  bottom: -4px;
-  right: -8px;
-  background: linear-gradient(135deg, var(--yellow), var(--orange));
-  color: var(--dark);
+  /* background: linear-gradient(135deg, var(--yellow), var(--orange)); */
+  color: var(--orange);
   font-size: .6rem;
   font-weight: 800;
   padding: .2rem .5rem;

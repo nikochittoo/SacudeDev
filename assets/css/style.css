@@ -690,7 +690,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 .servicio-desc {
   font-size: .88rem;
-  color: var(--light);
+  color: #f8fafcab;
   flex: 1;
   line-height: 1.6;
 }
@@ -705,7 +705,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 .servicio-duracion {
   font-size: .8rem;
-  color: var(--muted);
+  color: #f8fafcab;
   font-weight: 500;
 }
 
