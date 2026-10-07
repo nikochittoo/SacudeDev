@@ -105,8 +105,6 @@ revealCards.forEach((el) => cardObserver.observe(el));
 //   });
 // }, { threshold: 0.35 });
 
-sections.forEach((sec) => linkObserver.observe(sec));
-
 
 // ── Pequeño efecto parallax en los blobs del hero ──
 const blob1 = document.querySelector('.blob-1');

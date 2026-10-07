@@ -141,9 +141,9 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .btn-nav {
-  background: rgba(247,201,72,.12);
-  color: var(--yellow);
-  border: 1.5px solid rgba(247,201,72,.3);
+  background: rgba(252, 200, 132, 0.1);
+  color: var(--orange);
+  border: 1.5px solid rgba(252, 204, 132, 0.25);
   font-size: .85rem;
   padding: .5rem 1.2rem;
 }
@@ -979,6 +979,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
   .footer-brand { grid-column: span 1; }
+
+  .blob { display: none; }
 }
 
 @media (max-width: 480px) {

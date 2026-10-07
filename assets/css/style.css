@@ -6,8 +6,6 @@
 
 /* ---------- RESET & BASE ---------- */
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -42,10 +40,10 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
 }
 
 body {
+  margin: 0;
   font-family: 'Poppins', sans-serif;
   background: var(--violet-dark);
   color: var(--white);
@@ -186,12 +184,13 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* ---------- NAVBAR ---------- */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   z-index: 100;
   padding: 1rem 0;
+
 }
 
 .navbar.scrolled {
@@ -289,7 +288,9 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 /* ---------- HERO ---------- */
 .hero {
   position: relative;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -1105,7 +1106,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
 
-  .hero { padding: 7rem 0 4rem; }
+  .hero { width: 100%; min-height: 100dvh; padding: 7rem 0 4rem; }
   .hero-stats { gap: 1.25rem; padding: 1rem 1.5rem; }
   .stat-num { font-size: 1.3rem; }
 
@@ -1117,6 +1118,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
   .footer-brand { grid-column: span 1; }
+
+  .blob { display: none; }
 }
 
 @media (max-width: 480px) {
