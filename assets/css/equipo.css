@@ -175,20 +175,20 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 
 /* ---------- NAVBAR ---------- */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   z-index: 100;
   padding: 1rem 0;
+
 }
 
 .navbar.scrolled {
-  background: var(--violet-dark);
+  background: rgb(15, 1, 28);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,.06);
-  padding: .7rem 0;
 }
 
 .nav-inner {
