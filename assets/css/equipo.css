@@ -149,8 +149,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 }
 
 .btn-nav:hover {
-  background: var(--yellow);
-  color: var(--dark);
+  background: var(--orange);
+  color: var(--light);
 }
 
 .btn-discord {
