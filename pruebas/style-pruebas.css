@@ -1216,6 +1216,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   font-weight: 600;
   color: #f8fafcab;
 }
+
 .ejemplo {
   display: flex;
   align-items: center;
@@ -1224,8 +1225,33 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border: 1px solid rgba(255,255,255,.08);
   border-radius: var(--radius-md);
   background: rgba(255,255,255,.04);
+
+  /* Hace clickeable toda la tarjeta */
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
 }
-.ejemplo-thumb { flex: 0 0 84px; height: 60px; border-radius: var(--radius-sm); object-fit: cover; }
+
+.ejemplo:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.18);
+}
+
+.ejemplo-thumb {
+  flex: 0 0 84px;
+  width: 84px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.ejemplo-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .ejemplo-txt strong { display: block; font-size: .88rem; color: var(--white); }
 .ejemplo-txt span { font-size: .8rem; color: #f8fafcab; line-height: 1.5; }
 
