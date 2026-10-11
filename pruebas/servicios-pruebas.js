@@ -25,6 +25,23 @@
     });
   });
 
+  /* Ejemplos: despliegan la vista previa (uno abierto a la vez) */
+  grid.addEventListener('click', e => {
+    const head = e.target.closest('.ejemplo-head');
+    if (!head) return;
+    const ej = head.parentElement;
+    const abrir = !ej.classList.contains('abierto');
+    ej.closest('.servicio-ejemplos').querySelectorAll('.ejemplo.abierto').forEach(o => {
+      o.classList.remove('abierto');
+      o.querySelector('.ejemplo-head').setAttribute('aria-expanded', 'false');
+    });
+    if (abrir) {
+      ej.classList.add('abierto');
+      head.setAttribute('aria-expanded', 'true');
+      setTimeout(() => ej.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 380);
+    }
+  });
+
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && active) close(); });
   window.addEventListener('resize', () => { if (active) reset(active); });
 
@@ -92,6 +109,7 @@
   function reset(card) {
     if (card._ph) { card._ph.remove(); card._ph = null; }
     card.classList.remove('open', 'moving', 'mobile-open', 'hide');
+    card.querySelectorAll('.ejemplo.abierto').forEach(o => o.classList.remove('abierto'));
     card.removeAttribute('style');
     card.setAttribute('aria-expanded', 'false');
     cards.forEach(c => { c.classList.remove('hide'); c.style.display = ''; });
