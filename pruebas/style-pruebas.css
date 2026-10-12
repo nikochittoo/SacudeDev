@@ -1327,3 +1327,163 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   .ejemplo-detalle, .ejemplo-chevron { transition-duration: .01ms !important; }
 }
+
+/* =====================================================================
+   EFECTOS (pruebas)
+   ===================================================================== */
+
+/* ---------- 1. Partículas del hero ---------- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- 2. Texto del hero progresivo + frase que se escribe ---------- */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+.hero-inner .fade-in {
+  animation-name: heroIn;
+  animation-duration: .9s;
+  animation-timing-function: cubic-bezier(.2,.7,.2,1);
+}
+.hero-inner .delay-1 { animation-delay: .15s; }  /* título */
+.hero-inner .delay-2 { animation-delay: .55s; }  /* frase que se escribe */
+.hero-inner .delay-3 { animation-delay: .95s; }  /* subtítulo */
+.hero-inner .delay-4 { animation-delay: 1.35s; } /* botones */
+.hero-inner .delay-5 { animation-delay: 1.75s; } /* estadísticas */
+
+.hero-typing {
+  min-height: 1.7em;            /* reserva el alto: no hay saltos al escribir */
+  margin-bottom: 1.1rem;
+  font-family: 'Courier New', monospace;
+  font-size: clamp(.95rem, 2.4vw, 1.2rem);
+  font-weight: 700;
+  color: var(--orange);
+}
+.hero-typing-prompt { color: var(--muted); margin-right: .35rem; }
+
+.type-caret {
+  display: inline-block;
+  width: .5ch;
+  height: 1.05em;
+  margin-left: 2px;
+  background: var(--orange);
+  vertical-align: -.18em;
+  animation: caret-blink 1s steps(2, start) infinite;
+}
+@keyframes caret-blink { to { visibility: hidden; } }
+
+/* ---------- 3. Borde luminoso en tarjetas ---------- */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.servicio-card, .programador-card { position: relative; }
+
+.servicio-card::before,
+.programador-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1.5px;                              /* grosor del borde luminoso */
+  border-radius: inherit;
+  background: conic-gradient(from var(--glow-angle),
+    transparent 0deg, transparent 200deg,
+    var(--orange) 270deg, #c084fc 320deg, transparent 360deg);
+  /* deja visible solo el anillo del borde */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+.servicio-card:hover,
+.programador-card:hover { border-color: rgba(249,115,22,.3); }
+
+.servicio-card:hover::before,
+.programador-card:hover::before {
+  opacity: 1;
+  animation: glow-spin 3.2s linear infinite;
+}
+@keyframes glow-spin { to { --glow-angle: 360deg; } }
+
+/* La card de servicio expandida no lleva el efecto */
+.servicio-card.moving::before,
+.servicio-card.open::before { opacity: 0; animation: none; }
+.servicio-card.open:hover { border-color: var(--orange); }
+
+/* ---------- 4. Contadores ---------- */
+.stat-num { font-variant-numeric: tabular-nums; }
+
+/* ---------- 5. Revelado con variantes ---------- */
+.reveal-left, .reveal-right, .reveal-zoom, .reveal-up { opacity: 0; }
+
+.reveal-left.visible, .reveal-right.visible, .reveal-zoom.visible, .reveal-up.visible {
+  opacity: 1;
+  animation: rv-left .85s cubic-bezier(.2,.7,.2,1) backwards;
+  animation-delay: var(--rv-delay, 0s);
+}
+.reveal-right.visible { animation-name: rv-right; }
+.reveal-zoom.visible  { animation-name: rv-zoom; }
+.reveal-up.visible    { animation-name: rv-up; }
+
+/* "backwards": al terminar se libera el transform y siguen funcionando tus :hover */
+@keyframes rv-left  { from { opacity: 0; transform: translateX(-70px); } }
+@keyframes rv-right { from { opacity: 0; transform: translateX(70px); } }
+@keyframes rv-zoom  { from { opacity: 0; transform: scale(.82); } }
+@keyframes rv-up    { from { opacity: 0; transform: translateY(40px); } }
+
+/* ---------- 6. Navbar de cristal ---------- */
+.navbar { transition: padding .4s ease; }
+
+.navbar::before {                 /* capa de cristal: aparece con un fade */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(15,1,28,.62);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+          backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+.navbar.scrolled {
+  background: transparent;        /* ahora lo maneja ::before */
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+  border-bottom: 0;
+  padding: .7rem 0;
+}
+.navbar.scrolled::before { opacity: 1; }
+
+/* ---------- 7. Botones magnéticos ---------- */
+.is-magnetic {
+  translate: var(--mx, 0px) var(--my, 0px);   /* independiente de tu transform:hover */
+  will-change: translate;
+}
+
+/* ---------- 8. Código que se escribe solo ---------- */
+.code-float pre { margin: 0; min-height: 1.3em; white-space: pre; }
+.code-float .type-caret { height: .95em; vertical-align: -.12em; }
+
+/* ---------- Accesibilidad: sin movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-left, .reveal-right, .reveal-zoom, .reveal-up { opacity: 1; animation: none !important; }
+  .hero-inner .fade-in { animation-duration: .01ms; animation-delay: 0s; }
+  .servicio-card:hover::before, .programador-card:hover::before { animation: none; }
+  .type-caret { animation: none; }
+  .navbar, .navbar::before { transition: none; }
+}
