@@ -1,0 +1,301 @@
+/* =============================================
+   SACUDE DEVS — Cotizador (armador de consulta)
+   Se carga después de style.css
+   ============================================= */
+
+.cotizador {
+  position: relative;
+  padding: 7rem 0;
+  background: var(--violet-dark);
+  overflow: hidden;
+}
+
+.cotizador::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(640px circle at 88% 8%, rgba(124, 58, 237, .20), transparent 60%),
+    radial-gradient(520px circle at 6% 92%, rgba(249, 115, 22, .08), transparent 60%);
+}
+
+.cotizador .container { position: relative; }
+
+.cotizador-card {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 2.25rem;
+  background: #fcc8841a;
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  scroll-margin-top: 90px;
+}
+
+[hidden] { display: none !important; }
+
+
+/* ---------- Progreso ---------- */
+.cotiz-progress { margin-bottom: 1.75rem; }
+
+.cotiz-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: .6rem;
+  font-size: .8rem;
+}
+
+.cotiz-step-label { color: var(--orange); font-weight: 700; }
+.cotiz-step-name  { color: var(--muted);  font-weight: 500; }
+
+.cotiz-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  overflow: hidden;
+}
+
+.cotiz-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--yellow), var(--orange));
+  transition: width .45s cubic-bezier(.4, 0, .2, 1);
+}
+
+
+/* ---------- Pasos ---------- */
+.cotiz-panel.is-entering { animation: cotiz-in .3s ease both; }
+
+@keyframes cotiz-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cotiz-title {
+  margin: 0 0 .4rem;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 800;
+  color: var(--white);
+  outline: none;
+}
+
+.cotiz-hint {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.cotiz-context {
+  margin: -.9rem 0 1.5rem;
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.cotiz-context strong { color: var(--yellow); font-weight: 600; }
+
+.cotiz-group + .cotiz-group { margin-top: 1.75rem; }
+
+.cotiz-group-label {
+  margin: 0 0 .75rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+
+/* ---------- Tiles (servicio) ---------- */
+.cotiz-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .85rem;
+}
+
+.cotiz-tile,
+.cotiz-chip { position: relative; display: block; cursor: pointer; }
+
+.cotiz-tile input,
+.cotiz-chip input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.cotiz-tile-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  border: 1.5px solid rgba(255, 255, 255, .1);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, .03);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.cotiz-tile-icon { font-size: 1.6rem; line-height: 1.2; }
+.cotiz-tile-body strong { font-size: .95rem; font-weight: 700; color: var(--white); }
+.cotiz-tile-body small  { font-size: .75rem; color: var(--muted); }
+
+.cotiz-tile-body::after {
+  content: "✓";
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .7rem;
+  font-weight: 800;
+  color: var(--white);
+  background: var(--orange);
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.cotiz-tile:hover .cotiz-tile-body { border-color: rgba(249, 115, 22, .55); transform: translateY(-2px); }
+.cotiz-tile input:checked + .cotiz-tile-body { border-color: var(--orange); background: rgba(249, 115, 22, .12); }
+.cotiz-tile input:checked + .cotiz-tile-body::after { opacity: 1; transform: scale(1); }
+.cotiz-tile input:focus-visible + .cotiz-tile-body { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+.cotiz-tile.is-wide { grid-column: 1 / -1; }
+.cotiz-tile.is-wide .cotiz-tile-body { flex-direction: row; align-items: center; gap: .9rem; }
+.cotiz-tile.is-wide .cotiz-tile-body small { margin-left: auto; margin-right: 2rem; }
+
+
+/* ---------- Chips (extras, plazo, presupuesto) ---------- */
+.cotiz-chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+.cotiz-chip-body {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .55rem 1rem;
+  border: 1.5px solid rgba(255, 255, 255, .12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .04);
+  color: var(--light);
+  font-size: .85rem;
+  font-weight: 600;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+
+.cotiz-chip:hover .cotiz-chip-body { border-color: rgba(249, 115, 22, .55); }
+.cotiz-chip input:checked + .cotiz-chip-body { border-color: var(--orange); background: rgba(249, 115, 22, .15); color: var(--white); }
+.cotiz-chip input[type="checkbox"]:checked + .cotiz-chip-body::before { content: "✓"; color: var(--orange); font-weight: 800; }
+.cotiz-chip input:focus-visible + .cotiz-chip-body { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+
+/* ---------- Campos ---------- */
+.cotiz-fields { display: grid; gap: 1.1rem; }
+
+.cotiz-field label {
+  display: block;
+  margin-bottom: .4rem;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+.cotiz-field .cotiz-opcional { color: var(--muted); font-weight: 500; }
+
+.cotiz-input {
+  width: 100%;
+  padding: .8rem 1rem;
+  border: 1.5px solid rgba(255, 255, 255, .12);
+  border-radius: var(--radius-sm);
+  background: rgba(15, 1, 28, .6);
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: .95rem;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.cotiz-input::placeholder { color: rgba(148, 163, 184, .7); }
+.cotiz-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249, 115, 22, .25); }
+.cotiz-input[aria-invalid="true"] { border-color: #f87171; }
+textarea.cotiz-input { resize: vertical; min-height: 110px; line-height: 1.5; }
+
+.cotiz-error { margin: .4rem 0 0; font-size: .8rem; color: #fca5a5; }
+
+
+/* ---------- Navegación ---------- */
+.cotiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cotiz-nav .btn:only-child { margin-left: auto; }
+.cotiz-nav .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+
+/* ---------- Resumen ---------- */
+.cotiz-resumen { margin: 0 0 1.5rem; }
+
+.cotiz-resumen-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+
+.cotiz-resumen dt { margin: 0; color: var(--muted); font-size: .8rem; font-weight: 600; }
+.cotiz-resumen dd { margin: 0; color: var(--white); font-size: .92rem; overflow-wrap: anywhere; white-space: pre-line; }
+
+.cotiz-preview { margin-bottom: 1.5rem; }
+.cotiz-preview summary { cursor: pointer; color: var(--muted); font-size: .85rem; font-weight: 600; }
+.cotiz-preview summary:hover { color: var(--white); }
+.cotiz-preview textarea { margin-top: .75rem; min-height: 190px; font-size: .85rem; }
+
+.cotiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+.cotiz-status { margin: 1rem 0 0; min-height: 1.4em; font-size: .85rem; color: var(--whatsapp); }
+
+.cotiz-restart {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--muted);
+  font-family: 'Poppins', sans-serif;
+  font-size: .85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cotiz-restart:hover { color: var(--white); }
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .cotizador { padding: 5rem 0; }
+  .cotizador-card { padding: 1.5rem 1.25rem; }
+  .cotiz-tiles { grid-template-columns: repeat(2, 1fr); }
+  .cotiz-resumen-row { grid-template-columns: 1fr; gap: .25rem; }
+}
+
+@media (max-width: 480px) {
+  .cotiz-actions .btn { width: 100%; justify-content: center; }
+  .cotiz-tile.is-wide .cotiz-tile-body { flex-wrap: wrap; }
+  .cotiz-tile.is-wide .cotiz-tile-body small { margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cotiz-panel.is-entering { animation: none; }
+  .cotiz-bar-fill, .cotiz-tile-body, .cotiz-tile-body::after { transition: none; }
+  .cotiz-tile:hover .cotiz-tile-body { transform: none; }
+}
