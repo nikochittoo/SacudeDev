@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no encontrada — Sacude Devs</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0f011c" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo/icon.ico" />
+
+  <!-- Rutas absolutas (/assets/...): esta página se muestra en cualquier URL que no exista.
+       Si el sitio se publica en una subcarpeta (ej: usuario.github.io/repo/), hay que anteponer esa carpeta. -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/404.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQPWE0GSKB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WQPWE0GSKB');
+    gtag('event', 'pagina_no_encontrada', { ruta: location.pathname });
+  </script>
+</head>
+
+<body>
+  <div class="nf">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="grid-overlay"></div>
+
+    <header class="nf-top">
+      <div class="container">
+        <a href="/" class="logo">
+          <img src="/assets/img/logo/Naranja.webp" alt="Sacude Devs" class="logo-icon" width="40" height="25">
+          <span class="logo-text">Sacude<span class="accent">Devs</span></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="nf-main">
+      <div class="nf-inner">
+        <p class="nf-code-big" aria-hidden="true">404</p>
+        <h1 class="nf-title">Esta página se sacudió y no la encontramos</h1>
+        <p class="nf-text">El link puede estar mal escrito o la página ya no existe. Volvé al inicio y seguimos desde ahí.</p>
+        <p class="nf-path" id="nfRutaBox" hidden>No encontramos: <code id="nfRuta"></code></p>
+
+        <div class="nf-actions">
+          <a href="/" class="btn btn-primary">Volver al inicio</a>
+          <a href="/#servicios" class="btn btn-ghost">Ver servicios</a>
+          <a href="/#cotizador" class="btn btn-ghost">Armar mi consulta</a>
+        </div>
+
+        <div class="nf-snippet" aria-hidden="true">
+          <span class="k">const</span> pagina = <span class="k">null</span>; <span class="c">// error 404</span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="nf-foot">
+      <p>© 2026 Sacude Devs · <a href="/privacidad.html">Política de privacidad</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Muestra qué dirección falló (textContent: no interpreta HTML, es seguro)
+    (function () {
+      var ruta = location.pathname + location.search;
+      if (ruta && ruta !== '/404.html') {
+        document.getElementById('nfRuta').textContent = ruta;
+        document.getElementById('nfRutaBox').hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
