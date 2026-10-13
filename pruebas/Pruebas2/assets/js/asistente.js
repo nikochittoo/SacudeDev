@@ -52,7 +52,7 @@
     cotizar: 'Quiero cotizar', servicios: 'Qué servicios hacen', precio: 'Cuánto cuesta',
     tiempos: 'Cuánto tardan', contacto: 'Contacto', humano: 'Hablar con una persona',
     mas: 'Más preguntas', proceso: 'Cómo trabajan', preparar: 'Qué necesito tener',
-    soporte: 'Soporte y mantenimiento', equipo: 'Quiénes son', ejemplos: 'Ver ejemplos', inicio: 'Volver al inicio'
+    soporte: 'Soporte y mantenimiento', equipo: 'Quiénes son', ejemplos: 'Ver ejemplos', privacidad: 'Privacidad y datos', inicio: 'Volver al inicio'
   };
   const chips = (...ids) => ids.map((id) => ({ label: CHIP_LABELS[id], intent: id }));
   const MENU = chips('cotizar', 'servicios', 'precio', 'tiempos', 'contacto', 'humano', 'mas');
@@ -152,6 +152,15 @@
     chips: chips('servicios', 'cotizar', 'humano')
   }));
 
+  intent('privacidad', ['privacidad', 'mis datos', 'datos personales', 'datos', 'cookie*', 'proteccion de datos', 'seguridad'], () => ({
+    text: [
+      'Lo que cargás en el cotizador y en este chat no se guarda en ningún servidor nuestro: solo se usa para armar tu mensaje. Para las estadísticas usamos Google Analytics.',
+      'En la política de privacidad lo explicamos en detalle.'
+    ],
+    actions: [{ label: 'Leer la política de privacidad', href: 'privacidad.html', external: true }],
+    chips: chips('cotizar', 'contacto', 'mas')
+  }), 2);   // peso doble: "qué hacen con mis datos" no debe caer en Servicios
+
   intent('gracias', ['gracias', 'genial', 'perfecto', 'buenisimo', 'excelente', 'joya'], () => ({
     text: ['¡De nada! Si te queda alguna duda, acá estoy. 😊'],
     chips: MENU
@@ -165,7 +174,7 @@
   // Intents que se llegan solo con botones
   intent('mas', [], () => ({
     text: ['Esto es lo que más nos preguntan:'],
-    chips: chips('proceso', 'preparar', 'soporte', 'equipo', 'ejemplos', 'inicio')
+    chips: chips('proceso', 'preparar', 'soporte', 'equipo', 'ejemplos', 'privacidad', 'inicio')
   }));
   intent('inicio', [], () => ({ text: ['¿Qué querés saber?'], chips: MENU }));
 

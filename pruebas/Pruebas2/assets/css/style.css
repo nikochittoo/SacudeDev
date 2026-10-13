@@ -1336,3 +1336,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .programador-link:focus-visible { outline: none; }
 .programador-link:focus-visible::after { outline: 2px solid var(--orange); outline-offset: 3px; }
 .programador-redes { position: relative; z-index: 1; }
+
+
+/* Link de la política de privacidad en el footer */
+.footer-bottom a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.footer-bottom a:hover { color: var(--white); }

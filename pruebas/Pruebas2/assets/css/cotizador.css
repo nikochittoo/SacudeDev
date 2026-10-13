@@ -299,3 +299,7 @@ textarea.cotiz-input { resize: vertical; min-height: 110px; line-height: 1.5; }
   .cotiz-bar-fill, .cotiz-tile-body, .cotiz-tile-body::after { transition: none; }
   .cotiz-tile:hover .cotiz-tile-body { transform: none; }
 }
+
+
+.cotiz-privacy { margin: 1.25rem 0 0; font-size: .78rem; line-height: 1.5; color: var(--muted); }
+.cotiz-privacy a { color: var(--orange); text-decoration: underline; text-underline-offset: 2px; }

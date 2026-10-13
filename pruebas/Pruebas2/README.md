@@ -7,6 +7,8 @@ Landing page de Sacude Devs, hecha con HTML, CSS y JavaScript puro (sin framewor
 ```
 /
 ├── index.html           Página principal
+├── 404.html             Página de error (la sirve el hosting en cualquier URL inexistente)
+├── privacidad.html      Política de privacidad
 ├── equipo/              Perfiles individuales del equipo
 │   ├── Niko.html
 │   ├── Gabi.html
@@ -17,6 +19,8 @@ Landing page de Sacude Devs, hecha con HTML, CSS y JavaScript puro (sin framewor
 │   │   ├── equipo.css   Estilos de las páginas de equipo
 │   │   ├── efectos.css  Animaciones y efectos (progreso de scroll, link activo, spotlight, tilt, tipeo)
 │   │   ├── cotizador.css Estilos del cotizador (solo index)
+│   │   ├── 404.css      Estilos de la página 404
+│   │   ├── legal.css    Estilos de las páginas legales
 │   │   └── asistente.css Estilos del asistente flotante (solo index)
 │   ├── js/
 │   │   ├── app.js       Navbar, menú mobile, FAQ, scroll reveal, parallax (todas las páginas)
@@ -62,6 +66,11 @@ Chat flotante abajo a la derecha. No usa servidor ni IA: responde con botones de
 - Para agregar un tema nuevo: sumar un `intent(id, [palabras clave], () => respuesta)` en `asistente.js`. Las palabras clave van sin tildes y con `*` si es prefijo (`cotiz*`).
 - Descripciones cortas por servicio: objeto `DESC` al principio de `asistente.js`.
 - Eventos de Analytics: `asistente_abrir`, `asistente_tema` (qué tema consultan), `asistente_sin_respuesta` (sin guardar el texto escrito) y `asistente_contacto`. Sirve para ver qué preguntan más y qué falta responder.
+
+## Páginas 404 y privacidad
+
+- **404.html** usa rutas absolutas (`/assets/...`, `/`) porque el hosting la muestra en cualquier URL, a cualquier profundidad. Funciona con dominio propio o sitio de usuario; si se publica en una subcarpeta (ej: `usuario.github.io/repo/`) hay que anteponer esa carpeta. GitHub Pages, Netlify y Cloudflare Pages la toman solos si el archivo se llama `404.html` en la raíz. Registra el evento `pagina_no_encontrada` en Analytics para detectar links rotos.
+- **privacidad.html** describe lo que el sitio hace hoy: Google Analytics, Google Fonts, cotizador y asistente sin servidor. **Hay que actualizarla si se agrega algo** (formulario con backend, pixel de Meta, chat con IA, etc.). Tiene un comentario al inicio con los puntos a revisar antes de publicar; borrarlo después. No es asesoramiento legal.
 
 ## Convenciones
 

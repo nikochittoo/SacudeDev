@@ -192,7 +192,10 @@
         el('label', { for: 'cotiz-negocio' }, 'Tu negocio o proyecto ', el('span', { class: 'cotiz-opcional', text: '(opcional)' })), inNegocio),
       el('div', { class: 'cotiz-field' },
         el('label', { for: 'cotiz-idea' }, 'Contanos tu idea ', el('span', { class: 'cotiz-opcional', text: '(opcional)' })), inIdea)
-    )
+    ),
+    el('p', { class: 'cotiz-privacy' },
+      'Estos datos solo se usan para armar tu mensaje: no se envían a ningún servidor nuestro hasta que vos lo mandás. Más info en la ',
+      el('a', { href: 'privacidad.html', target: '_blank', rel: 'noopener', text: 'política de privacidad' }), '.')
   );
 
   /* Paso 5 — resumen (se vuelve a armar cada vez que se entra) */
