@@ -8,6 +8,21 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover     = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  const sleep       = ms => new Promise(r => setTimeout(r, ms));
+  const rand        = (a, b) => a + Math.random() * (b - a);
+
+  let heroVisible = true;
+  const heroListeners = [];
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      heroVisible = e.isIntersecting;
+      heroListeners.forEach(fn => fn(heroVisible));
+    }).observe(hero);
+  }
+  async function untilVisible(el) {
+    while (!heroVisible || document.hidden || (el && el.offsetParent === null)) await sleep(300);
+  }
+
 
   /* ── 1) Barra de progreso de scroll ── */
   function initScrollProgress() {
@@ -116,50 +131,50 @@
 
 
   /* ── 4) Tipeo en los snippets de código del hero ── */
-  function initTyping() {
+  function initCodeTyping() {
     if (reduceMotion) return;
-    const boxes = Array.from(document.querySelectorAll('.code-float'))
-      .filter((box) => getComputedStyle(box).display !== 'none' && box.querySelector('pre'));
-    if (!boxes.length) return;
+    const configs = [
+      { sel: '.code-float-1 pre', start: 1700, snippets: [
+        '<span class="c-key">const</span> <span class="c-var">idea</span> = <span class="c-str">"única"</span>;',
+        '<span class="c-key">def</span> <span class="c-fn">crear_web</span>(marca):',
+        '<span class="c-key">&lt;h1&gt;</span>Hola mundo<span class="c-key">&lt;/h1&gt;</span>'
+      ]},
+      { sel: '.code-float-2 pre', start: 2600, snippets: [
+        '<span class="c-fn">eleva</span>(<span class="c-str">"tu marca"</span>);',
+        '<span class="c-fn">print</span>(<span class="c-str">"Hola, mundo"</span>)',
+        '<span class="c-key">return</span> <span class="c-var">exito</span>;'
+      ]}
+    ];
 
-    // Prepara cada snippet: guarda el texto, lo vacía y fija el tamaño final de la caja
-    const snippets = boxes.map((box) => {
-      const pre = box.querySelector('pre');
-      box.style.minWidth = box.offsetWidth + 'px';
-      box.style.minHeight = box.offsetHeight + 'px';
-      const parts = [];
-      const walker = document.createTreeWalker(pre, NodeFilter.SHOW_TEXT);
-      while (walker.nextNode()) {
-        parts.push({ node: walker.currentNode, text: walker.currentNode.nodeValue });
-      }
-      parts.forEach((p) => { p.node.nodeValue = ''; });
-      return { pre: pre, parts: parts };
-    });
+    configs.forEach(async cfg => {
+      const pre = document.querySelector(cfg.sel);
+      if (!pre) return;
+      const caret = Object.assign(document.createElement('span'), { className: 'type-caret' });
+      caret.setAttribute('aria-hidden', 'true');
+      pre.textContent = ''; pre.append(caret);
+      await sleep(cfg.start);
 
-    function type(snippet) {
-      return new Promise((resolve) => {
-        snippet.pre.classList.add('is-typing');
-        let part = 0;
-        let chars = 0;
-        function step() {
-          if (part >= snippet.parts.length) { resolve(); return; }
-          const p = snippet.parts[part];
-          chars++;
-          p.node.nodeValue = p.text.slice(0, chars);
-          if (chars >= p.text.length) { part++; chars = 0; }
-          setTimeout(step, 55 + Math.random() * 70);
+      let i = 0;
+      for (;;) {
+        // Prepara el snippet: vacía cada nodo de texto y los va llenando (así se mantienen los colores)
+        const tpl = document.createElement('template');
+        tpl.innerHTML = cfg.snippets[i];
+        const nodes = [];
+        const walker = document.createTreeWalker(tpl.content, NodeFilter.SHOW_TEXT);
+        for (let n; (n = walker.nextNode());) { nodes.push([n, n.data]); n.data = ''; }
+        pre.textContent = '';
+        pre.append(tpl.content, caret);
+
+        for (const [node, txt] of nodes) {
+          for (const ch of txt) { await untilVisible(pre); node.data += ch; await sleep(rand(60, 130)); }
         }
-        step();
-      });
-    }
-
-    // Uno después del otro; el cursor queda parpadeando solo en el último
-    let chain = new Promise((resolve) => setTimeout(resolve, 1400)); // después del fade-in del hero
-    snippets.forEach((snippet, i) => {
-      chain = chain
-        .then(() => type(snippet))
-        .then(() => new Promise((resolve) => setTimeout(resolve, 350)))
-        .then(() => { if (i < snippets.length - 1) snippet.pre.classList.remove('is-typing'); });
+        await sleep(2600);
+        for (const [node] of nodes.slice().reverse()) {
+          while (node.data.length) { await untilVisible(pre); node.data = node.data.slice(0, -1); await sleep(28); }
+        }
+        await sleep(400);
+        i = (i + 1) % cfg.snippets.length;
+      }
     });
   }
 
@@ -196,6 +211,6 @@
   initScrollProgress();
   initActiveNav();
   initCountUp();
-  initTyping();
+  initCodeTyping();
   initCardEffects();
 })();
