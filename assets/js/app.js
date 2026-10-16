@@ -1,24 +1,29 @@
 // ── Navbar: añadir clase "scrolled" al hacer scroll ──
 const navbar = document.getElementById('navbar');
 
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 30);
-}, { passive: true });
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+}
 
 
 // ── Menú hamburguesa (mobile) ──
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
-hamburger.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  hamburger.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', isOpen);
-  // Bloquear scroll del body cuando el menú está abierto
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    // Bloquear scroll del body cuando el menú está abierto
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+}
 
 function closeMobileMenu() {
+  if (!hamburger || !mobileMenu) return;
   mobileMenu.classList.remove('open');
   hamburger.classList.remove('open');
   hamburger.setAttribute('aria-expanded', false);
@@ -87,9 +92,7 @@ const cardObserver = new IntersectionObserver((entries) => {
 revealCards.forEach((el) => cardObserver.observe(el));
 
 
-// ── Smooth active link highlight en navbar ──
-// const navLinkEls = document.querySelectorAll('.nav-links .nav-link, .mobile-menu .nav-link');
-// const sections   = document.querySelectorAll('section[id]');
+// ── Link activo de la navbar: ver efectos.js ──
 
 // const linkObserver = new IntersectionObserver((entries) => {
 //   entries.forEach((entry) => {
@@ -110,10 +113,24 @@ revealCards.forEach((el) => cardObserver.observe(el));
 const blob1 = document.querySelector('.blob-1');
 const blob2 = document.querySelector('.blob-2');
 
-window.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 30;
-  const y = (e.clientY / window.innerHeight - 0.5) * 30;
+// Solo con mouse (no táctil), sin "reducir movimiento", y agrupado en un frame
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hasFinePointer       = window.matchMedia('(pointer: fine)').matches;
 
-  if (blob1) blob1.style.transform = `translate(${x}px, ${y}px)`;
-  if (blob2) blob2.style.transform = `translate(${-x * 0.6}px, ${-y * 0.6}px)`;
-}, { passive: true });
+if ((blob1 || blob2) && hasFinePointer && !prefersReducedMotion) {
+  let rafId = null;
+  let mouseX = 0;
+  let mouseY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 30;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 30;
+
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      if (blob1) blob1.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      if (blob2) blob2.style.transform = `translate(${-mouseX * 0.6}px, ${-mouseY * 0.6}px)`;
+      rafId = null;
+    });
+  }, { passive: true });
+}

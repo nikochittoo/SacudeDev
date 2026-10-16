@@ -4,30 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sacude Devs — Desarrollo a Medida</title>
+  <meta name="description" content="Sacude Devs: desarrollo web a medida. Landing pages, sitios web, menús QR, e-commerce y webs para PyMEs. Diseño moderno, rápido y adaptable a celulares." />
+  <meta name="theme-color" content="#0f011c" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sacude Devs" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:title" content="Sacude Devs — Desarrollo a Medida" />
+  <meta property="og:description" content="Creamos software y soluciones web a medida. Sin vueltas, directo al código." />
+  <meta name="twitter:card" content="summary" />
+  <!-- TODO (cuando esté el dominio final): agregar og:url, og:image (URL absoluta, 1200x630) y link rel="canonical" -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/efectos.css" />
+  <link rel="stylesheet" href="assets/css/cotizador.css" />
+  <link rel="stylesheet" href="assets/css/asistente.css" />
   <link rel="icon" type="image/ico" href="assets/img/logo/icon.ico"/>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQPWE0GSKB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WQPWE0GSKB');
+  </script>
 </head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WQPWE0GSKB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WQPWE0GSKB');
-</script>
 
 <body>
 
   <!-- ========== NAVBAR ========== -->
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
-      <a href="/" class="logo">
-        <img src="assets/img/logo/Naranja.png" alt="Sacude Devs" class="logo-icon">
+      <a href="#hero" class="logo">
+        <img src="assets/img/logo/Naranja.webp" alt="Sacude Devs" class="logo-icon" width="40" height="25">
         <span class="logo-text">Sacude<span class="accent">Devs</span></span>
       </a>
 
@@ -36,12 +48,12 @@
         <a href="#sobre" class="nav-link">Sobre nosotros</a>
         <a href="#servicios" class="nav-link">Servicios</a>
         <a href="#programadores" class="nav-link">Programadores</a>
-        <!-- <a href="#faq" class="nav-link">FAQ</a> -->
+        <a href="#faq" class="nav-link">FAQ</a>
         <a href="#contacto" class="nav-link">Contacto</a>
-        <a href="#contacto" class="btn btn-nav">Cotizar web</a>
+        <a href="#cotizador" class="btn btn-nav">Cotizar web</a>
       </nav>
 
-      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -51,9 +63,9 @@
       <a href="#sobre" class="nav-link" onclick="closeMobileMenu()">Sobre nosotros</a>
       <a href="#servicios" class="nav-link" onclick="closeMobileMenu()">Servicios</a>
       <a href="#programadores" class="nav-link" onclick="closeMobileMenu()">Programadores</a>
-      <!-- <a href="#faq" class="nav-link" onclick="closeMobileMenu()">FAQ</a> -->
+      <a href="#faq" class="nav-link" onclick="closeMobileMenu()">FAQ</a>
       <a href="#contacto" class="nav-link" onclick="closeMobileMenu()">Contacto</a>
-      <a href="#contacto" class="btn btn-nav" onclick="closeMobileMenu()">Cotizar web</a>
+      <a href="#cotizador" class="btn btn-nav" onclick="closeMobileMenu()">Cotizar web</a>
     </div>
   </header>
 
@@ -80,32 +92,32 @@
           
           Hablemos de tu proyecto
         </a>
-        <a href="#portfolio" class="btn btn-ghost btn-large">Ver servicios →</a>
+        <a href="#servicios" class="btn btn-ghost btn-large">Ver servicios →</a>
       </div>
 
       <div class="hero-stats fade-in delay-4">
         <div class="stat">
-          <span class="stat-num">+20</span>
-          <span class="stat-label">Proyectos</span>
+          <span class="stat-num" data-count="3">3</span>
+          <span class="stat-label">Desarrolladores</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
-          <span class="stat-num">100%</span>
+          <span class="stat-num" data-count="100" data-suffix="%">100%</span>
           <span class="stat-label">A medida</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
-          <span class="stat-num">+15</span>
-          <span class="stat-label">Clientes</span>
+          <span class="stat-num" data-count="6">6</span>
+          <span class="stat-label">Servicios</span>
         </div>
       </div>
     </div>
     
     <!-- Floating code snippets decoration -->
-    <div class="code-float code-float-1 fade-in delay-5">
+    <div class="code-float code-float-1 fade-in delay-5" aria-hidden="true">
       <pre><span class="c-key">const</span> <span class="c-var">idea</span> = <span class="c-str">"única"</span>;</pre>
     </div>
-    <div class="code-float code-float-2 fade-in delay-5">
+    <div class="code-float code-float-2 fade-in delay-5" aria-hidden="true">
       <pre><span class="c-fn">eleva</span>(<span class="c-str">"tu marca"</span>);</pre>
     </div>
   </section>
@@ -202,7 +214,7 @@
               <p class="servicio-desc">Diseñamos páginas de aterrizaje optimizadas para captar clientes, lanzar productos o campañas publicitarias de forma directa y efectiva.</p>
               <div class="servicio-footer">
                 <span class="servicio-duracion">⏱ Estimado: 1-2 semanas</span>
-                <a href="#contacto" class="servicio-btn">Consultar →</a>
+                <a href="#cotizador" data-servicio="landing" class="servicio-btn">Consultar →</a>
               </div>
             </div>
             <div class="servicio-ejemplos">
@@ -244,7 +256,7 @@
               <p class="servicio-desc">Sitios web completos, profesionales y multiplataforma para presentar tu marca, tus servicios y contar la historia de tu proyecto.</p>
               <div class="servicio-footer">
                 <span class="servicio-duracion">⏱ Estimado: 2-3 semanas</span>
-                <a href="#contacto" class="servicio-btn">Consultar →</a>
+                <a href="#cotizador" data-servicio="website" class="servicio-btn">Consultar →</a>
               </div>
             </div>
             <div class="servicio-ejemplos">
@@ -264,10 +276,11 @@
                   <div class="ejemplo-detalle">
                     <div class="ejemplo-detalle-inner">
                       <div class="ejemplo-previews">
-                        <img src="assets/img/nasa desktop.png" alt="Vista en desktop" loading="lazy">
-                        <img src="assets/img/nasa mobile.png" alt="Vista en mobile" loading="lazy">
+                        <img src="assets/img/nasa-desktop.webp" alt="Vista en desktop del sitio de NASA Space Apps Santa Rosa" width="1200" height="582" loading="lazy" decoding="async">
+                        <img src="assets/img/nasa-mobile.webp" alt="Vista en celular del sitio de NASA Space Apps Santa Rosa" width="352" height="527" loading="lazy" decoding="async">
                       </div>
-                      <a class="ejemplo-link" href="https://nasaspaceapp-argentina.com/" target="_blank" rel="noopener">Visitar sitio ↗</a>
+                      <!-- TODO: cuando tengan la URL real, descomentar:
+                      <a class="ejemplo-link" href="URL_DEL_SITIO" target="_blank" rel="noopener">Visitar sitio ↗</a> -->
                     </div>
                   </div>
                 </div>
@@ -301,7 +314,7 @@
           <p class="servicio-desc">Cartas digitales interactivas para restaurantes, bares y cafés. Actualizá precios y platos al instante sin reimprimir códigos QR.</p>
           <div class="servicio-footer">
             <span class="servicio-duracion">⏱ Estimado: 1 semana</span>
-            <a href="#contacto" class="servicio-btn">Consultar →</a>
+            <a href="#cotizador" data-servicio="menu" class="servicio-btn">Consultar →</a>
           </div>
         </div>
             <div class="servicio-ejemplos">
@@ -309,15 +322,19 @@
               <h4 class="ejemplos-titulo">Ejemplos</h4>
               <div class="ejemplo">
                 <button class="ejemplo-head" type="button" aria-expanded="false">
-                  <div class="ejemplo-thumb" style="background:linear-gradient(135deg,#F97316,#ec4899)"></div>
-                  <div class="ejemplo-txt"><strong>Restaurante</strong><span>Carta por categorías</span></div>
+                  <div class="ejemplo-thumb"><img src="assets/img/demo-menu-thumb.webp" alt="" width="168" height="120" loading="lazy" decoding="async"></div>
+                  <div class="ejemplo-txt"><strong>Café Aurora · Demo conceptual</strong><span>Menú interactivo con pedidos y panel del local: probalo vos.</span></div>
                 </button>
-              </div>
-              <div class="ejemplo">
-                <button class="ejemplo-head" type="button" aria-expanded="false">
-                  <div class="ejemplo-thumb" style="background:linear-gradient(135deg,#c98a5a,#6b3f2a)"></div>
-                  <div class="ejemplo-txt"><strong>Café de especialidad</strong><span>Menú con fotos de cada plato</span></div>
-                </button>
+
+                <div class="ejemplo-detalle">
+                  <div class="ejemplo-detalle-inner">
+                    <div class="ejemplo-previews is-demo">
+                      <img src="assets/img/demo-menu-desktop.webp" alt="Demo del menú QR: el menú del cliente en un celular y, al lado, el panel del local para cambiar precios" width="1000" height="537" loading="lazy" decoding="async">
+                      <img src="assets/img/demo-menu-mobile.webp" alt="Menú del café en un celular, con el pedido armado" width="330" height="599" loading="lazy" decoding="async">
+                    </div>
+                    <a class="ejemplo-link" href="demos/menu-qr.html" target="_blank" rel="noopener">Probar la demo interactiva ↗</a>
+                  </div>
+                </div>
               </div>
               <div class="ejemplo">
                 <button class="ejemplo-head" type="button" aria-expanded="false">
@@ -343,7 +360,7 @@
           <p class="servicio-desc">Tiendas online autogestionables integradas con medios de pago y envíos. Vendé tus productos las 24 horas sin complicaciones.</p>
           <div class="servicio-footer">
             <span class="servicio-duracion">⏱ Estimado: 3-4 semanas</span>
-            <a href="#contacto" class="servicio-btn">Consultar →</a>
+            <a href="#cotizador" data-servicio="ecommerce" class="servicio-btn">Consultar →</a>
           </div>
         </div>
             <div class="servicio-ejemplos">
@@ -351,9 +368,19 @@
               <h4 class="ejemplos-titulo">Ejemplos</h4>
               <div class="ejemplo">
                 <button class="ejemplo-head" type="button" aria-expanded="false">
-                  <div class="ejemplo-thumb" style="background:linear-gradient(135deg,#ec4899,#7c3aed)"></div>
-                  <div class="ejemplo-txt"><strong>Tienda de indumentaria</strong><span>Talles, stock y carrito</span></div>
+                  <div class="ejemplo-thumb"><img src="assets/img/demo-tienda-thumb.webp" alt="" width="168" height="120" loading="lazy" decoding="async"></div>
+                  <div class="ejemplo-txt"><strong>Brote · Demo conceptual</strong><span>Tienda con carrito, cupón y panel de stock: probala vos.</span></div>
                 </button>
+
+                <div class="ejemplo-detalle">
+                  <div class="ejemplo-detalle-inner">
+                    <div class="ejemplo-previews is-demo">
+                      <img src="assets/img/demo-tienda-desktop.webp" alt="Demo de tienda online: carrito con cupón aplicado y, al lado, el panel de la tienda para manejar precios y stock" width="1000" height="593" loading="lazy" decoding="async">
+                      <img src="assets/img/demo-tienda-mobile.webp" alt="Tienda de plantas en un celular, con productos y carrito" width="330" height="599" loading="lazy" decoding="async">
+                    </div>
+                    <a class="ejemplo-link" href="demos/tienda.html" target="_blank" rel="noopener">Probar la demo interactiva ↗</a>
+                  </div>
+                </div>
               </div>
               <div class="ejemplo">
                 <button class="ejemplo-head" type="button" aria-expanded="false">
@@ -385,7 +412,7 @@
           <p class="servicio-desc">Soluciones robustas y formales para corporaciones, organizaciones o estudios que necesitan transmitir solidez y confianza institucional.</p>
           <div class="servicio-footer">
             <span class="servicio-duracion">⏱ Estimado: 3 semanas</span>
-            <a href="#contacto" class="servicio-btn">Consultar →</a>
+            <a href="#cotizador" data-servicio="institucional" class="servicio-btn">Consultar →</a>
           </div>
         </div>
             <div class="servicio-ejemplos">
@@ -427,7 +454,7 @@
           <p class="servicio-desc">Digitalizá tu negocio tradicional. Estructuras pensadas para comercios y PyMEs que buscan expandir su mercado y modernizar su operativa.</p>
           <div class="servicio-footer">
             <span class="servicio-duracion">⏱ Estimado: 2 semanas</span>
-            <a href="#contacto" class="servicio-btn">Consultar →</a>
+            <a href="#cotizador" data-servicio="pyme" class="servicio-btn">Consultar →</a>
           </div>
         </div>
             <div class="servicio-ejemplos">
@@ -470,49 +497,49 @@
 
       <div class="programadores-grid">
         <!-- Programador 1 -->
-        <article class="programador-card" onclick="window.location.href='equipo/Niko.html';" style="cursor: pointer;">
+        <article class="programador-card">
           <div class="programador-avatar">
             <div class="avatar-placeholder"></div>
             <div class="programador-badge">Fundador</div>
           </div>
           <div class="programador-info">
-            <h3 class="programador-nombre">Nicolás Brito Pedrocca</h3>
+            <h3 class="programador-nombre"><a href="equipo/Niko.html" class="programador-link">Nicolás Brito Pedrocca</a></h3>
             <span class="programador-area">Tecnico Superior en Desarrollo de Software</span>
             <p class="programador-desc">Apasionado del frontend moderno. Como programador y desarrollador, llevo años enseñando y creo que cualquiera puede aprender a programar si tiene el acompañamiento correcto.</p>
           </div>
-          <div class="programador-redes" onclick="event.stopPropagation();">
+          <div class="programador-redes">
             <a href="https://www.linkedin.com/in/nikochittoo/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
           </div>
         </article>
 
         <!-- Programador 2 -->
-        <article class="programador-card" onclick="window.location.href='equipo/Valen.html';" style="cursor: pointer;">
+        <article class="programador-card">
           <div class="programador-avatar">
             <div class="avatar-placeholder"></div>
             <div class="programador-badge">Co-Fundador</div>
           </div>
           <div class="programador-info">
-            <h3 class="programador-nombre">Valentín Saldaño</h3>
+            <h3 class="programador-nombre"><a href="equipo/Valen.html" class="programador-link">Valentín Saldaño</a></h3>
             <span class="programador-area">Tecnico Superior en Desarrollo de Software</span>
             <p class="programador-desc">Apasionado del frontend moderno. Como programador y desarrollador, llevo años enseñando y creo que cualquiera puede aprender a programar si tiene el acompañamiento correcto.</p>
           </div>
-          <div class="programador-redes" onclick="event.stopPropagation();">
+          <div class="programador-redes">
             <a href="https://www.linkedin.com/in/valentin-salda%C3%B1o-aab18125a/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
           </div>
         </article>
 
         <!-- Programador 3 -->
-        <article class="programador-card" onclick="window.location.href='equipo/Gabi.html';" style="cursor: pointer;">
+        <article class="programador-card">
           <div class="programador-avatar">
             <div class="avatar-placeholder"></div>
             <div class="programador-badge">Co-Fundador</div>
           </div>
           <div class="programador-info">
-            <h3 class="programador-nombre">Gabriel Dagna</h3>
+            <h3 class="programador-nombre"><a href="equipo/Gabi.html" class="programador-link">Gabriel Dagna</a></h3>
             <span class="programador-area">Analista en Sistemas</span>
             <p class="programador-desc">Desarrollador enfocado en el servidor. Trabajo construyendo sistemas robustos y quiero que vos también puedas crear el backend de tus proyectos.</p>
           </div>
-          <div class="programador-redes" onclick="event.stopPropagation();">
+          <div class="programador-redes">
             <a href="https://www.linkedin.com/in/gabriel-dagna-062b2025a/" target="_blank" rel="noopener" class="red-link">LinkedIn</a>
           </div>
         </article>
@@ -520,8 +547,26 @@
     </div>
   </section>
 
+  <!-- ========== COTIZADOR ========== -->
+  <section class="cotizador reveal" id="cotizador">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cotizador</span>
+        <h2 class="section-title">Armá tu consulta en un minuto</h2>
+        <p class="section-subtitle">Contanos qué necesitás y te respondemos con una propuesta a medida.</p>
+      </div>
+
+      <div class="cotizador-card" id="cotizadorApp">
+        <noscript>
+          <p>Para armar tu consulta necesitás tener JavaScript activado. Mientras tanto, escribinos directo por
+            <a href="https://wa.me/5493516345090" class="accent">WhatsApp</a> o a
+            <a href="mailto:sacudedevs@gmail.com" class="accent">sacudedevs@gmail.com</a>.</p>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== FAQ ========== -->
-  <!--
   <section class="faq reveal" id="faq">
     <div class="container">
       <div class="section-header">
@@ -533,68 +578,58 @@
       <div class="faq-list">
 
         <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
             ¿Cómo es el proceso para empezar a trabajar juntos?
             <span class="faq-icon">+</span>
           </button>
-          <div class="faq-answer">
-            <p>Primero nos escribís contándonos tu idea o proyecto. Evaluamos qué necesitás, te armamos una propuesta a medida y, una vez que la aceptás, arrancamos de inmediato con el diseño y desarrollo.</p>
+          <div class="faq-answer" id="faq-a1">
+            <p>Primero nos contás tu idea: podés usar el cotizador de esta página o escribirnos directo por WhatsApp. Evaluamos qué necesitás, armamos una propuesta a medida y, una vez que la aceptás, arrancamos con el diseño y el desarrollo.</p>
           </div>
         </div>
 
         <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+            ¿Cuánto cuesta una página web?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a2">
+            <p>Depende de lo que necesites: no es lo mismo una landing page que una tienda online con medios de pago. Por eso cada proyecto se cotiza a medida. Contanos tu idea con el cotizador y te respondemos con una propuesta pensada para tu caso.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal-card">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
             ¿Cuánto tiempo demora el desarrollo de una web?
             <span class="faq-icon">+</span>
           </button>
-          <div class="faq-answer">
-            <p>Depende del servicio: una Landing Page o Menú Web suele estar lista en 1 semana, mientras que un sitio institucional, web para PyMEs o E-commerce puede llevar entre 2 y 4 semanas.</p>
+          <div class="faq-answer" id="faq-a3">
+            <p>Depende del servicio: un Menú Web suele estar listo en 1 semana, una Landing Page en 1 a 2 semanas, y un Web Site, una web para PyMEs, un sitio institucional o un E-commerce entre 2 y 4 semanas. Son tiempos estimados y se ajustan a cada proyecto.</p>
           </div>
         </div>
 
         <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
             ¿Qué necesito tener preparado antes de empezar?
             <span class="faq-icon">+</span>
           </button>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faq-a4">
             <p>Con que tengas una idea clara de lo que querés transmitir, tu logo (si ya lo tenés) y ejemplos de páginas que te gusten es suficiente. Nosotros te guiamos con el resto de los contenidos y estructura.</p>
           </div>
         </div>
 
         <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
-            ¿Las páginas son adaptadas para celulares?
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a5">
+            ¿Podré actualizar mi web después? ¿Ofrecen soporte?
             <span class="faq-icon">+</span>
           </button>
-          <div class="faq-answer">
-            <p>¡100% sí! Todos nuestros desarrollos son totalmente responsivos, lo que significa que se adaptan y se ven perfectos tanto en computadoras como en tablets y celulares.</p>
-          </div>
-        </div>
-
-        <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
-            ¿Podré actualizar el contenido de mi web después?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Sí. Dependiendo del tipo de proyecto que elijas (como un E-commerce o una web autogestionable), te dejamos las herramientas listas y te mostramos cómo modificar textos, precios o productos fácilmente.</p>
-          </div>
-        </div>
-
-        <div class="faq-item reveal-card">
-          <button class="faq-question" aria-expanded="false">
-            ¿Ofrecen soporte una vez finalizado el proyecto?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Por supuesto. Te acompañamos durante el lanzamiento y ofrecemos planes de mantenimiento y soporte directo para que tu sitio web siempre funcione de diez y esté actualizado.</p>
+          <div class="faq-answer" id="faq-a5">
+            <p>Sí. Según el tipo de proyecto (como un E-commerce o una web autogestionable), te dejamos las herramientas listas y te mostramos cómo modificar textos, precios o productos. Además te acompañamos durante el lanzamiento y ofrecemos planes de mantenimiento y soporte para que tu sitio funcione de diez y esté siempre actualizado.</p>
           </div>
         </div>
 
       </div>
     </div>
-  </section> -->
+  </section>
 
   <!-- ========== CTA ========== -->
   <section class="cta-section reveal" id="contacto">
@@ -628,7 +663,7 @@
       <div class="footer-brand">
         <div class="logo">
           <a href="#" class="logo">
-            <img src="assets/img/logo/Naranja.png" alt="Sacude Devs" class="logo-icon"><span class="logo-text">Sacude<span class="accent">Devs</span></span>
+            <img src="assets/img/logo/Naranja.webp" alt="Sacude Devs" class="logo-icon" width="40" height="25"><span class="logo-text">Sacude<span class="accent">Devs</span></span>
           </a>
         </div>
         <p class="footer-tagline">Creamos software y soluciones web a medida.</p>
@@ -639,7 +674,8 @@
         <div><a href="#sobre" class="footer-link">Sobre nosotros</a></div>
         <div><a href="#servicios" class="footer-link">Servicios</a></div>
         <div><a href="#programadores" class="footer-link">Programadores</a></div>
-        <!-- <div><a href="#faq" class="footer-link">FAQ</a></div> -->
+        <div><a href="#cotizador" class="footer-link">Cotizador</a></div>
+        <div><a href="#faq" class="footer-link">FAQ</a></div>
       </div>
 
       <div class="footer-social">
@@ -684,11 +720,14 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 Sacude Devs. Hecho con 🧉 y mucho código.</p>
+      <p>© 2026 Sacude Devs. Hecho con 🧉 y mucho código. · <a href="privacidad.html">Política de privacidad</a></p>
     </div>
   </footer>
 
   <script src="assets/js/app.js"></script>
   <script src="assets/js/servicios.js"></script>
+  <script src="assets/js/efectos.js"></script>
+  <script src="assets/js/cotizador.js"></script>
+  <script src="assets/js/asistente.js"></script>
 </body>
 </html>

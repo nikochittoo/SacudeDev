@@ -14,7 +14,8 @@
 
     card.addEventListener('click', e => {
       if (e.target.closest('.servicio-close')) { close(); return; }
-      if (e.target.closest('a')) return;          // "Consultar →" sigue funcionando
+      const link = e.target.closest('a');
+      if (link) { if (active && link.classList.contains('servicio-btn')) close(); return; }          // "Consultar →" sigue funcionando
       if (!active) open(card);
     });
     card.addEventListener('keydown', e => {

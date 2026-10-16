@@ -990,3 +990,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   .hero-stats { flex-direction: column; gap: 1rem; }
   .stat-divider { width: 40px; height: 1px; }
 }
+
+
+/* Proyectos sin link todavía */
+.servicio-btn--soon { color: var(--muted, #94A3B8); cursor: default; }
+.servicio-btn--soon:hover { color: var(--muted, #94A3B8); }
