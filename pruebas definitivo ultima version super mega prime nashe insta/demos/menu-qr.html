@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo: Menú Web (QR) — Sacude Devs</title>
+  <meta name="description" content="Demo conceptual de un Menú Web (QR): probá el menú que ve el cliente y el panel donde el local actualiza precios y pedidos al instante." />
+  <meta name="theme-color" content="#0f011c" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="../assets/img/logo/icon.ico" />
+  <link rel="stylesheet" href="../assets/css/demo-base.css" />
+  <link rel="stylesheet" href="../assets/css/demo-menu.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQPWE0GSKB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WQPWE0GSKB');
+  </script>
+</head>
+
+<body class="demo">
+
+  <header class="demo-top">
+    <div class="demo-top-inner">
+      <a href="../index.html" class="demo-logo">
+        <img src="../assets/img/logo/Naranja.webp" alt="" width="36" height="23">
+        <span>Sacude<span class="accent">Devs</span></span>
+      </a>
+      <span class="demo-badge">Demo conceptual</span>
+      <div class="demo-top-actions">
+        <a href="../index.html#servicios" class="demo-link">← Volver al sitio</a>
+        <a href="../index.html?servicio=menu#cotizador" class="demo-btn">Quiero un menú así</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage" id="stage" data-view="cliente">
+
+    <section class="intro">
+      <span class="demo-badge intro-badge">Demo conceptual</span>
+      <h1>Así se ve un Menú Web (QR)</h1>
+      <p>Probá los dos lados: el menú que ve tu cliente al escanear el QR de la mesa, y el panel donde el local lo actualiza al instante, sin reimprimir nada.</p>
+      <details class="intro-steps-wrap" id="introSteps" open>
+        <summary>Cómo probar la demo</summary>
+        <ol class="intro-steps">
+          <li><strong>Pedí algo</strong> en el menú del celular y envialo.</li>
+          <li>Mirá cómo <strong>llega al local</strong> en la pestaña Pedidos y avanzá su estado: el cliente lo ve en su pantalla.</li>
+          <li><strong>Cambiá un precio</strong> o marcá algo como agotado en la pestaña Menú: el celular se actualiza solo.</li>
+        </ol>
+      </details>
+    </section>
+
+    <div class="view-switch" role="tablist" aria-label="Elegí qué vista ver">
+      <button type="button" role="tab" id="swCliente" aria-selected="true" aria-controls="vistaCliente">📱 Cliente</button>
+      <button type="button" role="tab" id="swLocal" aria-selected="false" aria-controls="vistaLocal">🏪 Local <span class="badge" id="swBadge" hidden>0</span></button>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- ===== Lo que ve el cliente ===== -->
+      <div class="view view-cliente" id="vistaCliente" role="tabpanel" aria-labelledby="swCliente">
+        <div class="phone">
+          <div class="phone-screen" id="cm">
+            <div class="cm-scroll" id="cmScroll">
+              <header class="cm-hero">
+                <label class="cm-chip">Mesa
+                  <select id="cmMesa" aria-label="Número de mesa"></select>
+                </label>
+                <h2 class="cm-title">Café Aurora</h2>
+                <p class="cm-sub">Tostado local · Pastelería casera</p>
+                <p class="cm-open">● Abierto hoy, de 8:00 a 20:00</p>
+              </header>
+
+              <div class="cm-status" id="cmStatus" hidden></div>
+
+              <nav class="cm-cats" id="cmCats" aria-label="Categorías del menú"></nav>
+              <div class="cm-filters" id="cmFilters" role="group" aria-label="Filtros del menú"></div>
+              <div id="cmList"></div>
+              <p class="cm-foot">Café Aurora es un negocio ficticio · Demo de Sacude Devs</p>
+            </div>
+
+            <button type="button" class="cm-cartbar" id="cmCartbar" hidden></button>
+            <div class="cm-toast" id="cmToast" role="status" aria-live="polite"></div>
+
+            <div class="cm-sheet" id="cmSheet" hidden>
+              <div class="cm-sheet-panel" id="cmSheetPanel" role="dialog" aria-modal="true" aria-label="Tu pedido"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Lo que ve el local ===== -->
+      <div class="view view-local" id="vistaLocal" role="tabpanel" aria-labelledby="swLocal">
+        <aside class="panel" aria-label="Panel del local">
+          <div class="pn-head">
+            <div>
+              <h2>Panel del local</h2>
+              <p>Los cambios se ven al instante en el menú del cliente.</p>
+            </div>
+            <button type="button" class="pn-reset" id="pnReset">Reiniciar demo</button>
+          </div>
+
+          <div class="pn-tabs" role="tablist" aria-label="Secciones del panel">
+            <button type="button" class="pn-tab" role="tab" id="tabMenu" aria-selected="true" aria-controls="paneMenu">Menú</button>
+            <button type="button" class="pn-tab" role="tab" id="tabPedidos" aria-selected="false" aria-controls="panePedidos">Pedidos <span class="badge" id="pnBadge" hidden>0</span></button>
+          </div>
+
+          <div class="pn-body">
+            <div id="paneMenu" role="tabpanel" aria-labelledby="tabMenu"></div>
+            <div id="panePedidos" role="tabpanel" aria-labelledby="tabPedidos" hidden></div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+
+    <p class="demo-foot">
+      Café Aurora es un negocio ficticio creado para esta demo. Los pedidos no se envían a ningún lado y nada se guarda al cerrar la página.
+      <br>
+      <a href="../index.html?servicio=menu#cotizador" class="demo-btn">Quiero un menú así para mi negocio</a>
+    </p>
+  </main>
+
+  <script src="../assets/js/demo-menu.js"></script>
+</body>
+</html>
