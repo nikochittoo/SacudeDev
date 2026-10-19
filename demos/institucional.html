@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo: Web institucional — Sacude Devs</title>
+  <meta name="description" content="Demo conceptual de la web institucional de un colegio privado: propuesta por nivel, comunicados, calendario y pre-inscripción online, con el panel donde el colegio lo gestiona sin tocar código." />
+  <meta name="theme-color" content="#0f011c" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="../assets/img/logo/icon.ico" />
+  <link rel="stylesheet" href="../assets/css/demo-base.css" />
+  <link rel="stylesheet" href="../assets/css/demo-institucional.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQPWE0GSKB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WQPWE0GSKB');
+  </script>
+</head>
+
+<body class="demo">
+
+  <header class="demo-top">
+    <div class="demo-top-inner">
+      <a href="../index.html" class="demo-logo">
+        <img src="../assets/img/logo/Naranja.webp" alt="" width="36" height="23">
+        <span>Sacude<span class="accent">Devs</span></span>
+      </a>
+      <span class="demo-badge">Demo conceptual</span>
+      <div class="demo-top-actions">
+        <a href="../index.html#servicios" class="demo-link">← Volver al sitio</a>
+        <a href="../index.html?servicio=institucional#cotizador" class="demo-btn">Quiero una web así</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage stage--split" id="stage" data-view="cliente">
+
+    <section class="intro">
+      <span class="demo-badge intro-badge">Demo conceptual</span>
+      <h1>Así se ve la web de un colegio</h1>
+      <p>Probá los dos lados: el sitio institucional que ven las familias, con propuesta, novedades, calendario y pre-inscripción, y el panel donde el colegio lo gestiona sin tocar código.</p>
+      <details class="intro-steps-wrap" id="introSteps" open>
+        <summary>Cómo probar la demo</summary>
+        <ol class="intro-steps">
+          <li><strong>Hacé una pre-inscripción</strong> desde el sitio, como lo haría una familia.</li>
+          <li>Mirá cómo <strong>llega al panel</strong> y avanzala: la familia ve el estado en su pantalla.</li>
+          <li><strong>Publicá un comunicado</strong> o sumá un evento al calendario: aparece en el sitio al instante.</li>
+        </ol>
+      </details>
+    </section>
+
+    <div class="view-switch" role="tablist" aria-label="Elegí qué vista ver">
+      <button type="button" role="tab" id="swCliente" aria-selected="true" aria-controls="vistaCliente">🏫 Sitio</button>
+      <button type="button" role="tab" id="swLocal" aria-selected="false" aria-controls="vistaLocal">🗂️ Panel <span class="badge" id="swBadge" hidden>0</span></button>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- ===== Lo que ven las familias ===== -->
+      <div class="view view-cliente" id="vistaCliente" role="tabpanel" aria-labelledby="swCliente">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="browser-url" aria-hidden="true">🔒 colegiohorizonte.example</span>
+          </div>
+
+          <div class="es-screen" id="es">
+            <div class="es-scroll" id="esScroll">
+              <header class="es-head">
+                <div class="es-nav">
+                  <span class="es-brand serif"><span class="crest" aria-hidden="true">✦</span>Colegio Horizonte</span>
+                  <nav class="es-links" aria-label="Menú del sitio">
+                    <a href="#es-propuesta" data-go="es-propuesta">Propuesta</a>
+                    <a href="#es-novedades" data-go="es-novedades">Novedades</a>
+                    <a href="#es-calendario" data-go="es-calendario">Calendario</a>
+                    <a href="#es-admision" data-go="es-admision">Admisión</a>
+                  </nav>
+                  <button type="button" class="es-btn" data-go="es-admision"><span class="lg">Pre-inscripción</span><span class="sm">Inscribirse</span></button>
+                </div>
+                <nav class="es-subnav" aria-label="Secciones del sitio">
+                  <a href="#es-propuesta" data-go="es-propuesta">Propuesta</a>
+                  <a href="#es-novedades" data-go="es-novedades">Novedades</a>
+                  <a href="#es-calendario" data-go="es-calendario">Calendario</a>
+                  <a href="#es-admision" data-go="es-admision">Admisión</a>
+                </nav>
+              </header>
+
+              <div class="es-status" id="esStatus" hidden></div>
+
+              <section class="es-hero">
+                <div>
+                  <p class="es-eyebrow">Inicial · Primario · Secundario</p>
+                  <h1 class="serif">Formamos personas curiosas, críticas y solidarias.</h1>
+                  <p>Una comunidad educativa que acompaña a cada estudiante a descubrir lo que quiere y puede ser.</p>
+                  <div class="es-actions">
+                    <button type="button" class="es-btn is-gold" data-go="es-admision">Pre-inscripción 2027</button>
+                    <button type="button" class="es-btn is-ghost" data-go="es-propuesta">Conocé la propuesta</button>
+                  </div>
+                  <div class="es-next" id="esNext" aria-live="polite"></div>
+                </div>
+                <div class="es-visual" aria-hidden="true">
+                  <div class="es-vcard"><span class="emo">🧸</span><div><strong>Nivel Inicial</strong><small>3 a 5 años</small></div></div>
+                  <div class="es-vcard"><span class="emo">📚</span><div><strong>Nivel Primario</strong><small>6 a 11 años</small></div></div>
+                  <div class="es-vcard"><span class="emo">🔬</span><div><strong>Nivel Secundario</strong><small>12 a 17 años</small></div></div>
+                </div>
+              </section>
+
+              <section class="es-section" id="es-propuesta">
+                <h2 class="serif">Propuesta educativa</h2>
+                <p class="lead">Un recorrido pensado para cada etapa.</p>
+                <div class="es-tabs" id="esTabs" role="tablist" aria-label="Niveles educativos"></div>
+                <div id="esLevel" role="tabpanel"></div>
+              </section>
+
+              <section class="es-section" id="es-novedades">
+                <h2 class="serif">Novedades y comunicados</h2>
+                <p class="lead">Lo que pasa en el colegio, siempre actualizado.</p>
+                <div class="es-chips" id="esNewsChips" role="group" aria-label="Filtrar comunicados"></div>
+                <div class="es-news" id="esNews"></div>
+              </section>
+
+              <section class="es-section" id="es-calendario">
+                <h2 class="serif">Calendario escolar</h2>
+                <p class="lead">Próximos eventos, actos y reuniones.</p>
+                <div class="es-chips" id="esCalChips" role="group" aria-label="Filtrar calendario"></div>
+                <div id="esCal"></div>
+              </section>
+
+              <section class="es-section" id="es-admision">
+                <h2 class="serif">Admisión</h2>
+                <p class="lead">Sumate a la comunidad: iniciá la pre-inscripción en minutos.</p>
+                <div class="es-adm">
+                  <div>
+                    <ol class="es-steps">
+                      <li><b>Pre-inscripción online</b><small>Completás el formulario con los datos básicos.</small></li>
+                      <li><b>Entrevista y visita</b><small>Conocés el colegio y conversamos con la familia.</small></li>
+                      <li><b>Confirmación de vacante</b><small>Te avisamos y completás la documentación.</small></li>
+                    </ol>
+                    <div class="es-vac" id="esVac" aria-label="Vacantes por nivel"></div>
+                  </div>
+                  <div id="esFormWrap"></div>
+                </div>
+              </section>
+
+              <p class="es-foot">Colegio Horizonte es una institución ficticia · Demo de Sacude Devs</p>
+            </div>
+
+            <div class="es-toast" id="esToast" role="status" aria-live="polite"></div>
+
+            <div class="es-overlay" id="esModal" hidden>
+              <div class="es-modal" id="esModalPanel" role="dialog" aria-modal="true" aria-labelledby="esModalTitle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Lo que ve el colegio ===== -->
+      <div class="view view-local" id="vistaLocal" role="tabpanel" aria-labelledby="swLocal">
+        <aside class="panel" aria-label="Panel del colegio">
+          <div class="pn-head">
+            <div>
+              <h2>Panel del colegio</h2>
+              <p>Los cambios se ven al instante en el sitio.</p>
+            </div>
+            <button type="button" class="pn-reset" id="pnReset">Reiniciar demo</button>
+          </div>
+
+          <div class="kpis" aria-label="Resumen">
+            <div class="kpi"><small>Solicitudes nuevas</small><strong id="kpiSol">0</strong></div>
+            <div class="kpi"><small>Vacantes</small><strong id="kpiVac">0</strong></div>
+            <div class="kpi"><small>Comunicados</small><strong id="kpiCom">0</strong></div>
+          </div>
+
+          <div class="pn-tabs" role="tablist" aria-label="Secciones del panel">
+            <button type="button" class="pn-tab" role="tab" id="tabCom" aria-selected="true" aria-controls="paneCom">Comunicados</button>
+            <button type="button" class="pn-tab" role="tab" id="tabCal" aria-selected="false" aria-controls="paneCal">Calendario</button>
+            <button type="button" class="pn-tab" role="tab" id="tabAdm" aria-selected="false" aria-controls="paneAdm">Admisión <span class="badge" id="pnBadge" hidden>0</span></button>
+          </div>
+
+          <div class="pn-body">
+            <div id="paneCom" role="tabpanel" aria-labelledby="tabCom"></div>
+            <div id="paneCal" role="tabpanel" aria-labelledby="tabCal" hidden></div>
+            <div id="paneAdm" role="tabpanel" aria-labelledby="tabAdm" hidden></div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+
+    <p class="demo-foot">
+      Colegio Horizonte es una institución ficticia creada para esta demo; los comunicados, eventos y solicitudes iniciales son datos de ejemplo. Nada se envía a ningún lado ni se guarda al cerrar la página.
+      <br>
+      <a href="../index.html?servicio=institucional#cotizador" class="demo-btn">Quiero una web así para mi institución</a>
+    </p>
+  </main>
+
+  <script src="../assets/js/demo-institucional.js"></script>
+</body>
+</html>
