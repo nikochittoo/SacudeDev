@@ -63,6 +63,9 @@
   const paneCom = $('paneCom');
   const paneCal = $('paneCal');
   const paneAdm = $('paneAdm');
+  const paneGal = $('paneGal');
+  const paneEq = $('paneEq');
+  const paneFam = $('paneFam');
 
 
   /* ─────────── Datos de la demo (institución ficticia) ─────────── */
@@ -111,13 +114,41 @@
   };
 
 
+  /* ─────────── Ampliación: galería, equipo, familias y cuotas ─────────── */
+  const ALBUMS = { actos: 'Actos', ciencias: 'Ciencias', deportes: 'Deportes', arte: 'Arte' };
+  const ALBUM_GRAD = { actos: ['#1F4E8C', '#4A8AD4'], ciencias: ['#1D7F6E', '#5CC2A6'], deportes: ['#D9822B', '#F2B134'], arte: ['#8E3A86', '#D777A8'] };
+  const ESCENAS = [['🎤', 'Acto'], ['🎖️', 'Reconocimientos'], ['🔬', 'Ciencias'], ['🤖', 'Robótica'], ['⚽', 'Fútbol'], ['🏊', 'Natación'], ['🎨', 'Arte'], ['🎶', 'Música'], ['📚', 'Biblioteca'], ['🌳', 'Huerta']];
+  const MATERIAS = {
+    primario: ['Lengua', 'Matemática', 'Ciencias Naturales', 'Ciencias Sociales', 'Inglés', 'Educación Física'],
+    secundario: ['Lengua y Literatura', 'Matemática', 'Física', 'Historia', 'Inglés', 'Biología']
+  };
+  const OBS = [
+    'Se integra con entusiasmo y colabora con sus compañeros en las propuestas del grupo.',
+    'Muestra curiosidad e iniciativa. Sigue creciendo en autonomía y participación.',
+    'Trabaja con responsabilidad y cumple con sus tareas. Se lo ve cómodo en el aula.'
+  ];
+  const FAMILIAS = [
+    { id: 'rojas', nombre: 'Familia Rojas', hijos: [
+      { id: 'benja', nombre: 'Benja', nivel: 'primario', grado: '3° grado' },
+      { id: 'emma', nombre: 'Emma', nivel: 'inicial', grado: 'Sala de 4' }] },
+    { id: 'perez', nombre: 'Familia Pérez', hijos: [
+      { id: 'valentina', nombre: 'Valentina', nivel: 'secundario', grado: '2° año' }] }
+  ];
+  const METODOS = { tarjeta: 'Tarjeta de crédito o débito', transferencia: 'Transferencia bancaria' };
+  const CUOTA_VENCE = 10; // día del mes
+  const money = (n) => '$' + Number(n).toLocaleString('es-AR');
+  const hashStr = (s) => { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 9973; return h; };
+
+
   /* ─────────── Estado compartido ─────────── */
   let vacantes, comunicados, eventos, solicitudes, seq;
   let filtroNews, filtroCal, nivelTab, miSolicitud, leyendo, form, formDone, lastSent;
+  let galeria, equipo, boletines, cuotasCfg, pagos, portal, filtroAlbum, filtroEq;
+  let modalKind, lightIdx, lightList, payCtx;
 
   function initState() {
     vacantes = { inicial: 4, primario: 2, secundario: 0 };
-    seq = { com: 1, ev: 1, sol: 1 };
+    seq = { com: 1, ev: 1, sol: 1, gal: 1, eq: 1, pago: 1 };
     comunicados = [];
     eventos = [];
     solicitudes = [];
@@ -149,6 +180,7 @@
     addSol('Mateo', 'primario', '3° grado', 'Carolina', 'whatsapp', true, 'nueva', 'Hace 1 h');
     addSol('Lola', 'inicial', 'Sala de 4', 'Diego', 'email', false, 'contactada', 'Ayer');
     miSolicitud = null;
+    seedExtra();
   }
 
   function addCom(titulo, cat, dias, importante, texto) {
@@ -444,6 +476,8 @@
     if (!c) return;
     leyendo = id;
     opener = from;
+    modalKind = 'news';
+    modalPanel.className = 'es-modal';
     modalPanel.replaceChildren(
       el('button', { type: 'button', class: 'es-x', 'aria-label': 'Cerrar', 'data-action': 'cerrar', text: '✕' }),
       el('div', { class: 'es-meta' }, el('span', { text: fechaCorta(c.fecha) + ' · ' + CATS[c.cat] }), c.importante ? el('span', { class: 'es-pin', text: '📌 Importante' }) : null),
@@ -458,6 +492,9 @@
     modalEl.hidden = true;
     scrollEl.inert = false;
     leyendo = null;
+    modalKind = null;
+    lightIdx = null;
+    payCtx = null;
     if (returnFocus !== false && opener && document.contains(opener)) opener.focus();
   }
   modalEl.addEventListener('click', (e) => { if (e.target === modalEl || e.target.closest('[data-action="cerrar"]')) closeNews(); });
@@ -679,24 +716,536 @@
   });
 
 
+  /* ─────────── Ampliación: datos de ejemplo ─────────── */
+  function addFoto(album, escena, titulo, alInicio) {
+    const f = { id: 'G' + seq.gal++, album: album, escena: escena, titulo: titulo, visible: true };
+    if (alInicio) galeria.unshift(f); else galeria.push(f);
+    return f;
+  }
+  function addMiembro(emoji, nombre, rol, nivelId, alInicio) {
+    const m = { id: 'Q' + seq.eq++, emoji: emoji, nombre: nombre, rol: rol, nivel: nivelId, visible: true };
+    if (alInicio) equipo.unshift(m); else equipo.push(m);
+    return m;
+  }
+  function addPago(familiaId, mes, metodo, estado, hora, monto) {
+    const p = { id: 'P' + seq.pago++, familia: familiaId, mes: mes, metodo: metodo, estado: estado, hora: hora, monto: monto };
+    pagos.unshift(p);
+    return p;
+  }
+
+  const hijosDe = (f) => f.hijos;
+  const montoFamilia = (f) => f.hijos.reduce((t, h) => t + cuotasCfg[h.nivel], 0);
+  const todosLosHijos = () => FAMILIAS.reduce((a, f) => a.concat(f.hijos), []);
+  const familiaDe = (hijoId) => FAMILIAS.find((f) => f.hijos.some((h) => h.id === hijoId));
+
+  function mesesCuotas() {
+    const hoy = fromISO(hoyISO());
+    return [-1, 0, 1].map((off) => {
+      const d = new Date(hoy.getFullYear(), hoy.getMonth() + off, 1);
+      return { key: d.getFullYear() + '-' + pad(d.getMonth() + 1), label: MESES_LARGO[d.getMonth()], venc: toISO(new Date(d.getFullYear(), d.getMonth(), CUOTA_VENCE)), vencTxt: CUOTA_VENCE + ' ' + MESES[d.getMonth()] };
+    });
+  }
+  const pagoDe = (f, mesKey) => pagos.find((p) => p.familia === f.id && p.mes === mesKey);
+  function estadoCuota(f, mes) {
+    const p = pagoDe(f, mes.key);
+    if (p) return p.estado;
+    return mes.venc < hoyISO() ? 'vencida' : 'pendiente';
+  }
+  const pendientesDe = (f) => mesesCuotas().filter((m) => { const e = estadoCuota(f, m); return e === 'pendiente' || e === 'vencida'; }).length;
+
+  function seedExtra() {
+    galeria = []; equipo = []; pagos = [];
+    [['actos', '🎤', 'Acto institucional de apertura'], ['actos', '🎖️', 'Reconocimientos del año'], ['ciencias', '🔬', 'Feria de ciencias'], ['ciencias', '🤖', 'Taller de robótica'],
+     ['deportes', '⚽', 'Torneo intercolegial'], ['deportes', '🏊', 'Jornada de natación'], ['arte', '🎨', 'Muestra de arte'], ['arte', '🎶', 'Ensayo del coro']]
+      .forEach((x) => addFoto(x[0], x[1], x[2]));
+    [['🧑‍🏫', 'Prof. Laura Méndez', 'Dirección general', 'todos'], ['🧑‍💼', 'Prof. Martín Giraldo', 'Coordinación de Nivel Primario', 'primario'],
+     ['👩‍🏫', 'Prof. Julia Sosa', 'Maestra de Sala de 4', 'inicial'], ['👨‍🏫', 'Prof. Andrés Paz', 'Matemática', 'secundario'],
+     ['👩‍💻', 'Prof. Camila Ríos', 'Inglés', 'todos'], ['🧑‍⚕️', 'Lic. Hernán Cruz', 'Orientación escolar', 'todos']]
+      .forEach((x) => addMiembro(x[0], x[1], x[2], x[3]));
+    boletines = {};
+    todosLosHijos().forEach((h) => { boletines[h.id] = { 1: true, 2: true, 3: false }; });
+    cuotasCfg = { inicial: 85000, primario: 95000, secundario: 110000 };
+    const meses = mesesCuotas();
+    FAMILIAS.forEach((f) => addPago(f.id, meses[0].key, 'tarjeta', 'pagada', 'Mes anterior', montoFamilia(f)));
+    addPago('perez', meses[1].key, 'transferencia', 'revision', 'Hoy', montoFamilia(FAMILIAS[1]));
+    filtroAlbum = 'todos';
+    filtroEq = 'todos';
+    portal = { familia: null, hijo: null, tri: 2, tab: 'boletin' };
+    modalKind = null; lightIdx = null; lightList = []; payCtx = null;
+  }
+
+
+  /* ─────────── Sitio: equipo docente ─────────── */
+  function chipsNode(attr, actual, items) {
+    return items.map((k) => el('button', { type: 'button', class: 'es-chip', [attr]: k[0], 'aria-pressed': String(actual === k[0]), text: k[1] }));
+  }
+
+  function renderEquipo() {
+    $('esEqChips').replaceChildren(...chipsNode('data-filtro-eq', filtroEq, [['todos', 'Todos'], ['inicial', 'Inicial'], ['primario', 'Primario'], ['secundario', 'Secundario']]));
+    const lista = equipo.filter((m) => m.visible && (filtroEq === 'todos' || m.nivel === 'todos' || m.nivel === filtroEq));
+    $('esEquipo').replaceChildren(...(lista.length ? lista.map((m) => el('article', { class: 'es-member', 'data-eq': m.id },
+      el('div', { class: 'avatar', 'aria-hidden': 'true', text: m.emoji }),
+      el('h3', { text: m.nombre }),
+      el('p', { text: m.rol }),
+      el('span', { class: 'es-tag', text: m.nivel === 'todos' ? 'Todos los niveles' : NIVEL_EV[m.nivel] })))
+      : [el('div', { class: 'es-empty', text: 'No hay integrantes para este nivel por ahora.' })]));
+  }
+
+
+  /* ─────────── Sitio: galería ─────────── */
+  const fotosVisibles = () => galeria.filter((f) => f.visible && (filtroAlbum === 'todos' || f.album === filtroAlbum));
+
+  function renderGaleria() {
+    $('esGalChips').replaceChildren(...chipsNode('data-filtro-gal', filtroAlbum, [['todos', 'Todas']].concat(Object.keys(ALBUMS).map((k) => [k, ALBUMS[k]]))));
+    const lista = fotosVisibles();
+    $('esGaleria').replaceChildren(...(lista.length ? lista.map((f) => el('button', { type: 'button', class: 'es-photo', 'data-foto': f.id,
+      style: '--g1:' + ALBUM_GRAD[f.album][0] + ';--g2:' + ALBUM_GRAD[f.album][1], 'aria-label': 'Ver foto: ' + f.titulo },
+      el('span', { class: 'emo', 'aria-hidden': 'true', text: f.escena }), el('span', { class: 'cap', text: f.titulo })))
+      : [el('div', { class: 'es-empty', text: 'No hay fotos en este álbum por ahora.' })]));
+  }
+
+  function openGallery(id, from) {
+    lightList = fotosVisibles();
+    lightIdx = lightList.findIndex((f) => f.id === id);
+    if (lightIdx < 0) return;
+    opener = from;
+    modalKind = 'galeria';
+    renderLight();
+    modalEl.hidden = false;
+    scrollEl.inert = true;
+    const t = $('esModalTitle'); if (t) t.focus({ preventScroll: true });
+  }
+
+  function renderLight() {
+    const f = lightList[lightIdx];
+    modalPanel.className = 'es-modal is-light';
+    modalPanel.replaceChildren(
+      el('button', { type: 'button', class: 'es-x', 'aria-label': 'Cerrar', 'data-action': 'cerrar', text: '✕' }),
+      el('div', { class: 'es-light-pic', style: '--g1:' + ALBUM_GRAD[f.album][0] + ';--g2:' + ALBUM_GRAD[f.album][1], 'aria-hidden': 'true', text: f.escena }),
+      el('h3', { class: 'serif', id: 'esModalTitle', tabindex: '-1', text: f.titulo }),
+      el('p', { class: 'es-light-meta', text: ALBUMS[f.album] + ' · foto ' + (lightIdx + 1) + ' de ' + lightList.length }),
+      el('div', { class: 'es-light-nav' },
+        el('button', { type: 'button', class: 'es-btn is-ghost', 'data-light': 'prev', disabled: lightList.length < 2, text: '← Anterior' }),
+        el('button', { type: 'button', class: 'es-btn is-ghost', 'data-light': 'next', disabled: lightList.length < 2, text: 'Siguiente →' })));
+  }
+
+  function moveLight(delta) {
+    if (modalKind !== 'galeria' || lightList.length < 2) return;
+    lightIdx = (lightIdx + delta + lightList.length) % lightList.length;
+    renderLight();
+    const t = $('esModalTitle'); if (t) t.focus({ preventScroll: true });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (modalEl.hidden || modalKind !== 'galeria') return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); moveLight(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); moveLight(-1); }
+  });
+
+
+  /* ─────────── Sitio: portal de familias ─────────── */
+  const familiaActual = () => FAMILIAS.find((f) => f.id === portal.familia) || null;
+
+  function renderPortal() {
+    const box = $('esPortal');
+    const f = familiaActual();
+    if (!f) { box.replaceChildren(loginNode()); return; }
+    const h = f.hijos.find((x) => x.id === portal.hijo) || f.hijos[0];
+    portal.hijo = h.id;
+    const pend = pendientesDe(f);
+    box.replaceChildren(el('div', { class: 'es-portal-card' },
+      el('div', { class: 'es-portal-head' },
+        el('div', null, el('h3', { class: 'serif', text: 'Hola, ' + f.nombre }), el('small', { text: f.hijos.map((x) => x.nombre).join(' y ') })),
+        el('button', { type: 'button', class: 'es-link', 'data-portal': 'logout', text: 'Salir' })),
+      el('div', { class: 'es-tabs', role: 'tablist', 'aria-label': 'Secciones del portal' },
+        el('button', { type: 'button', class: 'es-tab', role: 'tab', 'data-portal-tab': 'boletin', 'aria-selected': String(portal.tab === 'boletin'), text: '📄 Boletín' }),
+        el('button', { type: 'button', class: 'es-tab', role: 'tab', 'data-portal-tab': 'cuotas', 'aria-selected': String(portal.tab === 'cuotas') }, '💳 Cuotas',
+          pend ? el('span', { class: 'badge', text: String(pend) }) : null)),
+      portal.tab === 'boletin' ? boletinView(f, h) : cuotasView(f)));
+  }
+
+  function loginNode() {
+    const sel = el('select', { class: 'es-select', id: 'esFamSel', 'aria-describedby': 'esFamErr' },
+      [el('option', { value: '', text: 'Elegí una familia de ejemplo' })].concat(FAMILIAS.map((f) =>
+        el('option', { value: f.id, text: f.nombre + ' · ' + f.hijos.length + (f.hijos.length === 1 ? ' hijo' : ' hijos') }))));
+    return el('div', { class: 'es-portal-card es-login' },
+      el('h3', { class: 'serif', text: 'Ingresá a tu cuenta' }),
+      el('p', { text: 'Elegí una familia de ejemplo para ver cómo es el portal desde adentro.' }),
+      el('p', { class: 'es-note', text: 'En un portal real se ingresa con usuario y contraseña. Acá no se pide ningún dato.' }),
+      el('div', { class: 'es-field' }, el('label', { for: 'esFamSel', text: 'Familia' }), sel,
+        el('p', { class: 'es-err', id: 'esFamErr', role: 'alert', hidden: true, text: 'Elegí una familia para ingresar.' })),
+      el('button', { type: 'button', class: 'es-btn', 'data-portal': 'login', text: 'Ingresar al portal' }));
+  }
+
+  function boletinView(f, h) {
+    const chips = [];
+    if (f.hijos.length > 1) {
+      chips.push(el('div', { class: 'es-subchips', role: 'group', 'aria-label': 'Elegí un hijo' }, f.hijos.map((x) =>
+        el('button', { type: 'button', class: 'es-chip', 'data-portal-hijo': x.id, 'aria-pressed': String(x.id === h.id), text: x.nombre + ' · ' + x.grado }))));
+    }
+    chips.push(el('div', { class: 'es-subchips', role: 'group', 'aria-label': 'Elegí un trimestre' }, [1, 2, 3].map((t) =>
+      el('button', { type: 'button', class: 'es-chip', 'data-portal-tri': String(t), 'aria-pressed': String(portal.tri === t), text: t + '° trimestre' }))));
+
+    let cuerpo;
+    if (!boletines[h.id][portal.tri]) {
+      cuerpo = el('div', { class: 'es-wait' }, '📭 El boletín del ' + portal.tri + '° trimestre de ' + h.nombre + ' todavía no está disponible.', el('br'), 'Te avisamos cuando el colegio lo publique.');
+    } else {
+      const asis = 92 + hashStr(h.id + 'a' + portal.tri) % 8;
+      const obs = OBS[hashStr(h.id + 'o' + portal.tri) % OBS.length];
+      let tabla = null;
+      let promedio = null;
+      if (h.nivel !== 'inicial') {
+        const base = h.nivel === 'secundario' ? 6 : 7;
+        const span = h.nivel === 'secundario' ? 5 : 4;
+        const notas = MATERIAS[h.nivel].map((m) => ({ m: m, n: base + hashStr(h.id + m + portal.tri) % span }));
+        promedio = (notas.reduce((t, x) => t + x.n, 0) / notas.length).toFixed(1).replace('.', ',');
+        tabla = el('table', { class: 'es-grades' },
+          el('thead', null, el('tr', null, el('th', { scope: 'col', text: 'Materia' }), el('th', { scope: 'col', text: 'Nota' }))),
+          el('tbody', null, notas.map((x) => el('tr', null, el('td', { text: x.m }), el('td', null, el('span', { class: 'es-nota' + (x.n >= 9 ? ' is-hi' : ''), text: String(x.n) }))))));
+      }
+      cuerpo = el('div', { class: 'es-bol' },
+        el('div', { class: 'es-bol-top' }, el('strong', { text: h.nombre + ' · ' + h.grado + ' · ' + portal.tri + '° trimestre' }),
+          el('button', { type: 'button', class: 'es-btn is-ghost', 'data-portal-descargar': '1', text: 'Descargar PDF' })),
+        tabla,
+        el('div', { class: 'es-bol-meta' },
+          el('span', { class: 'es-tag', text: 'Asistencia ' + asis + '%' }),
+          promedio ? el('span', { class: 'es-tag is-ok', text: 'Promedio ' + promedio }) : el('span', { class: 'es-tag', text: 'Informe cualitativo' })),
+        el('p', { class: 'es-obs', text: '📝 ' + obs }));
+    }
+    return el('div', null, chips, cuerpo);
+  }
+
+  function cuotasView(f) {
+    const meses = mesesCuotas();
+    return el('div', null,
+      el('p', { class: 'lead', style: 'margin:0 0 .8rem;font-size:.82rem;color:var(--es-muted)', text: 'Cuota mensual de ' + f.nombre + ': ' + money(montoFamilia(f)) + ' (' + f.hijos.length + (f.hijos.length === 1 ? ' hijo' : ' hijos') + ').' }),
+      el('div', { class: 'es-cuotas' }, meses.map((mes) => {
+        const est = estadoCuota(f, mes);
+        const pago = pagoDe(f, mes.key);
+        const pill = { pagada: ['ok', 'Pagada'], revision: ['info', 'Pago en revisión'], pendiente: ['warn', 'Pendiente'], vencida: ['bad', 'Vencida'] }[est];
+        return el('div', { class: 'es-cuota', 'data-cuota': mes.key },
+          el('div', null, el('strong', { text: 'Cuota de ' + mes.label }), el('small', { text: pago ? (METODOS[pago.metodo] + ' · ' + pago.hora) : 'Vence el ' + mes.vencTxt })),
+          el('span', { class: 'monto', text: money(pago ? pago.monto : montoFamilia(f)) }),
+          el('div', { class: 'es-cuota-acc' }, el('span', { class: 'es-pill ' + pill[0], text: pill[1] }),
+            (est === 'pendiente' || est === 'vencida') ? el('button', { type: 'button', class: 'es-btn', 'data-pagar': mes.key, 'aria-label': 'Pagar la cuota de ' + mes.label, text: 'Pagar' }) : null));
+      })));
+  }
+
+  /* Pago de una cuota (ventana modal) */
+  function openPay(mesKey, from) {
+    if (!familiaActual() || !mesesCuotas().some((m) => m.key === mesKey)) return;
+    payCtx = { mesKey: mesKey, metodo: 'tarjeta' };
+    opener = from;
+    modalKind = 'pago';
+    renderPay();
+    modalEl.hidden = false;
+    scrollEl.inert = true;
+    $('esModalTitle').focus({ preventScroll: true });
+  }
+
+  function renderPay() {
+    const f = familiaActual();
+    const mes = mesesCuotas().find((m) => m.key === payCtx.mesKey);
+    const metodo = (value, sub) => {
+      const input = el('input', { type: 'radio', name: 'esMetodo', value: value });
+      input.checked = payCtx.metodo === value;
+      return el('label', { class: 'es-choice' }, input, el('span', null, METODOS[value], el('small', { text: sub })));
+    };
+    modalPanel.className = 'es-modal';
+    modalPanel.replaceChildren(
+      el('button', { type: 'button', class: 'es-x', 'aria-label': 'Cerrar', 'data-action': 'cerrar', text: '✕' }),
+      el('h3', { class: 'serif', id: 'esModalTitle', tabindex: '-1', text: 'Pagar la cuota de ' + mes.label }),
+      el('ul', { class: 'es-pay-lines' },
+        ...f.hijos.map((h) => el('li', null, el('span', { text: h.nombre + ' · ' + h.grado }), el('span', { text: money(cuotasCfg[h.nivel]) }))),
+        el('li', { class: 'total' }, el('span', { text: 'Total' }), el('span', { text: money(montoFamilia(f)) }))),
+      el('div', { class: 'es-choices', role: 'radiogroup', 'aria-label': 'Forma de pago' },
+        metodo('tarjeta', 'Se acredita al instante'), metodo('transferencia', 'El colegio la confirma cuando la recibe')),
+      el('p', { class: 'es-note', text: 'Es una demo: no ingreses datos reales ni de tarjetas. No se procesa ningún pago.' }),
+      el('div', { class: 'foot', style: 'gap:.5rem' },
+        el('button', { type: 'button', class: 'es-btn is-ghost', 'data-action': 'cerrar', text: 'Cancelar' }),
+        el('button', { type: 'button', class: 'es-btn', 'data-pay-confirm': '1', text: 'Pagar ' + money(montoFamilia(f)) })));
+  }
+
+  function confirmarPago() {
+    const f = familiaActual();
+    const mes = mesesCuotas().find((m) => m.key === payCtx.mesKey);
+    if (!f || !mes || pagoDe(f, mes.key)) { closeNews(false); return; }
+    const metodo = payCtx.metodo;
+    addPago(f.id, mes.key, metodo, metodo === 'tarjeta' ? 'pagada' : 'revision', new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }), montoFamilia(f));
+    closeNews(false);
+    renderPortal();
+    renderPanelFam();
+    renderKpis();
+    flash('[data-cuota="' + mes.key + '"]');
+    toast(metodo === 'tarjeta' ? '💳 Pago aprobado: cuota de ' + mes.label : '🏦 Recibimos tu aviso de pago: el colegio lo confirma en breve');
+    track('demo_colegio_pago', { metodo: metodo });
+  }
+
+  modalPanel.addEventListener('click', (e) => {
+    const light = e.target.closest('[data-light]');
+    if (light) { moveLight(light.dataset.light === 'next' ? 1 : -1); const again = modalPanel.querySelector('[data-light="' + light.dataset.light + '"]'); if (again) again.focus(); return; }
+    if (e.target.closest('[data-pay-confirm]')) confirmarPago();
+  });
+  modalPanel.addEventListener('change', (e) => {
+    if (e.target.name === 'esMetodo' && payCtx) payCtx.metodo = e.target.value;
+  });
+
+  /* Eventos del sitio: filtros, galería y portal */
+  scrollEl.addEventListener('click', (e) => {
+    const fg = e.target.closest('[data-filtro-gal]');
+    const fe = e.target.closest('[data-filtro-eq]');
+    const foto = e.target.closest('[data-foto]');
+    const pt = e.target.closest('[data-portal]');
+    const ptab = e.target.closest('[data-portal-tab]');
+    const phijo = e.target.closest('[data-portal-hijo]');
+    const ptri = e.target.closest('[data-portal-tri]');
+    const pagar = e.target.closest('[data-pagar]');
+    const desc = e.target.closest('[data-portal-descargar]');
+    if (fg) { filtroAlbum = fg.dataset.filtroGal; renderGaleria(); const f = scrollEl.querySelector('[data-filtro-gal="' + filtroAlbum + '"]'); if (f) f.focus(); return; }
+    if (fe) { filtroEq = fe.dataset.filtroEq; renderEquipo(); const f = scrollEl.querySelector('[data-filtro-eq="' + filtroEq + '"]'); if (f) f.focus(); return; }
+    if (foto) { openGallery(foto.dataset.foto, foto); return; }
+    if (pt) {
+      if (pt.dataset.portal === 'login') {
+        const sel = $('esFamSel');
+        if (!sel.value) { sel.setAttribute('aria-invalid', 'true'); $('esFamErr').hidden = false; sel.focus(); return; }
+        portal = { familia: sel.value, hijo: familiaActualPorId(sel.value).hijos[0].id, tri: 2, tab: 'boletin' };
+        renderPortal();
+        const t = scrollEl.querySelector('.es-portal-card h3'); if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); }
+        track('demo_colegio_portal');
+      } else { portal = { familia: null, hijo: null, tri: 2, tab: 'boletin' }; renderPortal(); const s = $('esFamSel'); if (s) s.focus({ preventScroll: true }); }
+      return;
+    }
+    if (ptab) { portal.tab = ptab.dataset.portalTab; renderPortal(); const f = scrollEl.querySelector('[data-portal-tab="' + portal.tab + '"]'); if (f) f.focus(); return; }
+    if (phijo) { portal.hijo = phijo.dataset.portalHijo; renderPortal(); const f = scrollEl.querySelector('[data-portal-hijo="' + portal.hijo + '"]'); if (f) f.focus(); return; }
+    if (ptri) { portal.tri = Number(ptri.dataset.portalTri); renderPortal(); const f = scrollEl.querySelector('[data-portal-tri="' + portal.tri + '"]'); if (f) f.focus(); return; }
+    if (pagar) { openPay(pagar.dataset.pagar, pagar); return; }
+    if (desc) toast('📄 Descarga simulada: en tu sitio real sería el PDF del boletín');
+  });
+  const familiaActualPorId = (id) => FAMILIAS.find((f) => f.id === id);
+
+
+  /* ─────────── Panel: galería ─────────── */
+  function buildPanelGal() {
+    const titulo = el('input', { class: 'cp-input', type: 'text', id: 'cpFotoTitulo', maxlength: '60', placeholder: 'Ej: Torneo de ajedrez', 'aria-describedby': 'cpFotoErr' });
+    const album = el('select', { class: 'cp-select', id: 'cpFotoAlbum' }, Object.keys(ALBUMS).map((k) => el('option', { value: k, text: ALBUMS[k] })));
+    const escena = el('select', { class: 'cp-select', id: 'cpFotoEscena' }, ESCENAS.map((x) => el('option', { value: x[0], text: x[0] + ' ' + x[1] })));
+    const err = el('p', { class: 'cp-err', id: 'cpFotoErr', role: 'alert', hidden: true, text: 'Poné un título para la foto.' });
+    const agregar = el('button', { type: 'button', class: 'cp-btn', text: 'Agregar foto de ejemplo' });
+    agregar.addEventListener('click', () => {
+      const t = titulo.value.trim();
+      titulo.removeAttribute('aria-invalid'); err.hidden = true;
+      if (t.length < 3) { titulo.setAttribute('aria-invalid', 'true'); err.hidden = false; titulo.focus(); return; }
+      const f = addFoto(album.value, escena.value, t, true);
+      titulo.value = ''; filtroAlbum = 'todos';
+      renderGaleria(); renderPanelGalList();
+      flash('[data-foto="' + f.id + '"]');
+      toast('📷 Nueva foto en la galería: ' + t);
+      trackOnce('demo_colegio_panel');
+      titulo.focus();
+    });
+    paneGal.replaceChildren(
+      el('section', { class: 'st-card' },
+        el('h3', { text: 'Agregar una foto' }),
+        el('p', { text: 'En un sitio real subís la imagen desde tu compu; acá elegís una ilustración.' }),
+        field('Descripción', titulo, 'cpFotoTitulo'), err,
+        el('div', { class: 'cp-two' }, field('Álbum', album, 'cpFotoAlbum'), field('Ilustración', escena, 'cpFotoEscena')),
+        agregar),
+      el('h3', { class: 'cp-sub', text: 'Fotos publicadas' }),
+      el('div', { class: 'cp-list', id: 'cpGalList' }));
+    renderPanelGalList();
+  }
+
+  function renderPanelGalList() {
+    const box = $('cpGalList');
+    if (!box) return;
+    box.replaceChildren(...galeria.map((f) => el('div', { class: 'cp-item' + (f.visible ? '' : ' is-off') },
+      el('div', { class: 'cp-row-top' }, el('strong', null, el('span', { class: 'cp-thumb', 'aria-hidden': 'true', text: f.escena }), f.titulo)),
+      el('small', { text: ALBUMS[f.album] + (f.visible ? '' : ' · oculta') }),
+      el('div', { class: 'acts' },
+        el('button', { type: 'button', class: 'cp-btn is-ghost is-small', 'data-foto-vis': f.id, text: f.visible ? 'Ocultar' : 'Mostrar' }),
+        el('button', { type: 'button', class: 'cp-btn is-danger is-small', 'data-foto-del': f.id, text: 'Eliminar' })))));
+  }
+
+  paneGal.addEventListener('click', (e) => {
+    const vis = e.target.closest('[data-foto-vis]');
+    const del = e.target.closest('[data-foto-del]');
+    const quitar = (f, msg) => {
+      if (modalKind === 'galeria' && lightList[lightIdx] && lightList[lightIdx].id === f.id) { closeNews(false); toast('Esa foto ya no está disponible'); }
+      else toast(msg);
+    };
+    if (vis) {
+      const f = galeria.find((x) => x.id === vis.dataset.fotoVis);
+      f.visible = !f.visible;
+      renderGaleria(); renderPanelGalList();
+      const again = paneGal.querySelector('[data-foto-vis="' + f.id + '"]'); if (again) again.focus();
+      if (f.visible) { flash('[data-foto="' + f.id + '"]'); toast('📷 Foto visible en la galería'); } else quitar(f, '🙈 Foto oculta de la galería');
+      trackOnce('demo_colegio_panel');
+    } else if (del) {
+      const f = galeria.find((x) => x.id === del.dataset.fotoDel);
+      galeria.splice(galeria.indexOf(f), 1);
+      renderGaleria(); renderPanelGalList();
+      quitar(f, '🗑️ Foto eliminada de la galería');
+      trackOnce('demo_colegio_panel');
+    }
+  });
+
+
+  /* ─────────── Panel: equipo docente ─────────── */
+  function buildPanelEq() {
+    const nombre = el('input', { class: 'cp-input', type: 'text', id: 'cpMiNombre', maxlength: '50', placeholder: 'Ej: Prof. Ana Torres', 'aria-describedby': 'cpMiErr' });
+    const rol = el('input', { class: 'cp-input', type: 'text', id: 'cpMiRol', maxlength: '60', placeholder: 'Ej: Maestra de 2° grado' });
+    const nv = el('select', { class: 'cp-select', id: 'cpMiNivel' }, Object.keys(NIVEL_EV).map((k) => el('option', { value: k, text: NIVEL_EV[k] })));
+    const err = el('p', { class: 'cp-err', id: 'cpMiErr', role: 'alert', hidden: true, text: 'Completá el nombre y el cargo.' });
+    const agregar = el('button', { type: 'button', class: 'cp-btn', text: 'Sumar al equipo' });
+    agregar.addEventListener('click', () => {
+      nombre.removeAttribute('aria-invalid'); rol.removeAttribute('aria-invalid'); err.hidden = true;
+      if (nombre.value.trim().length < 3) { nombre.setAttribute('aria-invalid', 'true'); err.hidden = false; nombre.focus(); return; }
+      if (rol.value.trim().length < 3) { rol.setAttribute('aria-invalid', 'true'); err.hidden = false; rol.focus(); return; }
+      const m = addMiembro('🧑‍🏫', nombre.value.trim(), rol.value.trim(), nv.value, true);
+      nombre.value = ''; rol.value = ''; filtroEq = 'todos';
+      renderEquipo(); renderPanelEqList();
+      flash('[data-eq="' + m.id + '"]');
+      toast('👋 Se sumó al equipo docente: ' + m.nombre);
+      trackOnce('demo_colegio_panel');
+      nombre.focus();
+    });
+    paneEq.replaceChildren(
+      el('section', { class: 'st-card' },
+        el('h3', { text: 'Sumar a una persona' }),
+        el('p', { text: 'Aparece en la sección Equipo docente del sitio.' }),
+        field('Nombre', nombre, 'cpMiNombre'), field('Cargo o materia', rol, 'cpMiRol'),
+        field('Nivel', nv, 'cpMiNivel'), err, agregar),
+      el('h3', { class: 'cp-sub', text: 'Equipo docente' }),
+      el('div', { class: 'cp-list', id: 'cpEqList' }));
+    renderPanelEqList();
+  }
+
+  function renderPanelEqList() {
+    const box = $('cpEqList');
+    if (!box) return;
+    box.replaceChildren(...equipo.map((m) => el('div', { class: 'cp-item' + (m.visible ? '' : ' is-off') },
+      el('strong', { text: m.nombre }),
+      el('small', { text: m.rol + ' · ' + NIVEL_EV[m.nivel] + (m.visible ? '' : ' · oculto') }),
+      el('div', { class: 'acts' },
+        el('button', { type: 'button', class: 'cp-btn is-ghost is-small', 'data-mi-vis': m.id, text: m.visible ? 'Ocultar' : 'Mostrar' }),
+        el('button', { type: 'button', class: 'cp-btn is-danger is-small', 'data-mi-del': m.id, text: 'Eliminar' })))));
+  }
+
+  paneEq.addEventListener('click', (e) => {
+    const vis = e.target.closest('[data-mi-vis]');
+    const del = e.target.closest('[data-mi-del]');
+    if (vis) {
+      const m = equipo.find((x) => x.id === vis.dataset.miVis);
+      m.visible = !m.visible;
+      renderEquipo(); renderPanelEqList();
+      const again = paneEq.querySelector('[data-mi-vis="' + m.id + '"]'); if (again) again.focus();
+      if (m.visible) flash('[data-eq="' + m.id + '"]');
+      toast(m.visible ? '👀 ' + m.nombre + ' vuelve a verse en el sitio' : '🙈 ' + m.nombre + ' se oculta del sitio');
+      trackOnce('demo_colegio_panel');
+    } else if (del) {
+      const m = equipo.find((x) => x.id === del.dataset.miDel);
+      equipo.splice(equipo.indexOf(m), 1);
+      renderEquipo(); renderPanelEqList();
+      toast('🗑️ Se quitó del equipo: ' + m.nombre);
+      trackOnce('demo_colegio_panel');
+    }
+  });
+
+
+  /* ─────────── Panel: familias (boletines y cuotas) ─────────── */
+  function buildPanelFam() {
+    const head = el('div', { class: 'cp-bol-row cp-bol-head', 'aria-hidden': 'true' }, el('span', { style: 'text-align:left', text: 'Alumno' }), el('span', { text: '1°T' }), el('span', { text: '2°T' }), el('span', { text: '3°T' }));
+    const filas = todosLosHijos().map((h) => el('div', { class: 'cp-bol-row' },
+      el('span', null, h.nombre, el('small', { text: h.grado })),
+      ...[1, 2, 3].map((t) => el('button', { type: 'button', class: 'pn-switch', role: 'switch', 'aria-checked': String(boletines[h.id][t]),
+        'aria-label': 'Boletín del ' + t + '° trimestre de ' + h.nombre + ': ' + (boletines[h.id][t] ? 'publicado' : 'sin publicar'), 'data-bol': h.id + '|' + t }, el('span')))));
+    paneFam.replaceChildren(
+      el('section', { class: 'st-card' },
+        el('h3', { text: 'Boletines' }),
+        el('p', { text: 'Publicá el boletín de cada trimestre: la familia lo ve al instante en su portal.' }),
+        el('div', { class: 'cp-bol' }, head, ...filas)),
+      el('section', { class: 'st-card' },
+        el('h3', { text: 'Valor de la cuota mensual' }),
+        el('p', { text: 'Por hijo, según el nivel. Se aplica a las cuotas que todavía no se pagaron.' }),
+        el('div', { class: 'cp-vac' }, NIVELES.map((n) => el('div', null,
+          el('label', { for: 'cpCfg-' + n.id, text: n.emoji + ' ' + n.nombre.replace('Nivel ', '') }),
+          el('input', { class: 'cp-input', type: 'number', id: 'cpCfg-' + n.id, min: '0', step: '1000', inputmode: 'numeric', value: String(cuotasCfg[n.id]), 'data-cfg': n.id }))))),
+      el('h3', { class: 'cp-sub', text: 'Pagos recibidos' }),
+      el('div', { class: 'cp-list', id: 'cpPagosList' }));
+    renderPanelFam();
+  }
+
+  function renderPanelFam() {
+    const box = $('cpPagosList');
+    if (!box) return;
+    const meses = mesesCuotas();
+    const lista = pagos.slice().sort((a, b) => (b.estado === 'revision') - (a.estado === 'revision'));
+    box.replaceChildren(...(lista.length ? lista.map((p) => {
+      const f = FAMILIAS.find((x) => x.id === p.familia);
+      const mes = meses.find((m) => m.key === p.mes);
+      return el('div', { class: 'cp-item' + (p.estado === 'revision' ? ' is-new' : '') },
+        el('div', { class: 'cp-row-top' }, el('strong', { text: f.nombre + ' · ' + (mes ? mes.label : p.mes) }),
+          el('span', { class: 'pn-pill pn-pill-' + (p.estado === 'revision' ? 'warn' : 'listo'), text: p.estado === 'revision' ? 'En revisión' : 'Pagada' })),
+        el('small', { text: money(p.monto) + ' · ' + METODOS[p.metodo] + ' · ' + p.hora }),
+        p.estado === 'revision' ? el('div', { class: 'acts' }, el('button', { type: 'button', class: 'cp-btn is-small', 'data-pago-ok': p.id, text: 'Confirmar pago' })) : null);
+    }) : [el('p', { class: 'cp-hint', text: 'Todavía no hay pagos.' })]));
+  }
+
+  paneFam.addEventListener('click', (e) => {
+    const sw = e.target.closest('[data-bol]');
+    const ok = e.target.closest('[data-pago-ok]');
+    if (sw) {
+      const parts = sw.dataset.bol.split('|');
+      const h = todosLosHijos().find((x) => x.id === parts[0]);
+      const t = Number(parts[1]);
+      boletines[h.id][t] = !boletines[h.id][t];
+      sw.setAttribute('aria-checked', String(boletines[h.id][t]));
+      sw.setAttribute('aria-label', 'Boletín del ' + t + '° trimestre de ' + h.nombre + ': ' + (boletines[h.id][t] ? 'publicado' : 'sin publicar'));
+      renderPortal();
+      if (boletines[h.id][t] && portal.familia === familiaDe(h.id).id && portal.hijo === h.id && portal.tri === t) flash('.es-bol');
+      toast(boletines[h.id][t] ? '📄 Nuevo boletín disponible: ' + h.nombre + ' · ' + t + '° trimestre' : 'Boletín de ' + h.nombre + ' (' + t + '° trimestre) sin publicar');
+      trackOnce('demo_colegio_panel');
+    } else if (ok) {
+      const p = pagos.find((x) => x.id === ok.dataset.pagoOk);
+      p.estado = 'pagada';
+      p.hora = new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+      renderPanelFam(); renderPortal(); renderKpis();
+      flash('[data-cuota="' + p.mes + '"]');
+      toast('✅ El colegio acreditó el pago de la cuota');
+      trackOnce('demo_colegio_panel');
+    }
+  });
+
+  paneFam.addEventListener('input', (e) => {
+    const inp = e.target.closest('[data-cfg]');
+    if (!inp) return;
+    const v = Number(inp.value);
+    if (inp.value === '' || !isFinite(v) || v < 0) return;
+    cuotasCfg[inp.dataset.cfg] = Math.round(v);
+    renderPortal();
+    panelToast('Cuota de ' + nivel(inp.dataset.cfg).nombre + ': ' + money(cuotasCfg[inp.dataset.cfg]));
+    trackOnce('demo_colegio_panel');
+  });
+
+
   /* ─────────── Panel: resumen, pestañas, vistas, reinicio ─────────── */
   function renderKpis() {
     const nuevas = solicitudes.filter((s) => s.estado === 'nueva').length;
     $('kpiSol').textContent = String(nuevas);
     $('kpiVac').textContent = String(totalVacantes());
     $('kpiCom').textContent = String(comunicados.length);
-    ['pnBadge', 'swBadge'].forEach((id) => { const b = $(id); b.textContent = String(nuevas); b.hidden = nuevas === 0; });
+    const revision = pagos.filter((p) => p.estado === 'revision').length;
+    const bs = [['pnBadge', nuevas], ['pnBadgeFam', revision], ['swBadge', nuevas + revision]];
+    bs.forEach((x) => { const b = $(x[0]); b.textContent = String(x[1]); b.hidden = x[1] === 0; });
   }
 
   function setPanelTab(which) {
-    [['com', 'tabCom', paneCom], ['cal', 'tabCal', paneCal], ['adm', 'tabAdm', paneAdm]].forEach((x) => {
+    [['com', 'tabCom', paneCom], ['cal', 'tabCal', paneCal], ['adm', 'tabAdm', paneAdm], ['gal', 'tabGal', paneGal], ['eq', 'tabEq', paneEq], ['fam', 'tabFam', paneFam]].forEach((x) => {
       $(x[1]).setAttribute('aria-selected', String(x[0] === which));
       x[2].hidden = x[0] !== which;
     });
   }
-  $('tabCom').addEventListener('click', () => setPanelTab('com'));
-  $('tabCal').addEventListener('click', () => setPanelTab('cal'));
-  $('tabAdm').addEventListener('click', () => setPanelTab('adm'));
+  [['tabCom', 'com'], ['tabCal', 'cal'], ['tabAdm', 'adm'], ['tabGal', 'gal'], ['tabEq', 'eq'], ['tabFam', 'fam']].forEach((x) => $(x[0]).addEventListener('click', () => setPanelTab(x[1])));
 
   function setView(which) {
     stage.dataset.view = which;
@@ -720,6 +1269,9 @@
     renderVacantes();
     buildForm();
     renderStatus();
+    renderEquipo();
+    renderGaleria();
+    renderPortal();
     renderKpis();
   }
 
@@ -729,6 +1281,9 @@
     buildPanelCom();
     buildPanelCal();
     buildPanelAdm();
+    buildPanelGal();
+    buildPanelEq();
+    buildPanelFam();
     renderAll();
     setPanelTab('com');
     setView('cliente');
@@ -743,6 +1298,9 @@
   buildPanelCom();
   buildPanelCal();
   buildPanelAdm();
+  buildPanelGal();
+  buildPanelEq();
+  buildPanelFam();
   renderAll();
   if (isNarrow()) $('introSteps').removeAttribute('open');
 })();
